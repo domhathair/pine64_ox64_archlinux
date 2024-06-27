@@ -1,0 +1,206 @@
+[2024-03-30T19:43:56+0200] [PACMAN] Running 'pacman -r ./rootfs -Sy --config=/usr/share/devtools/pacman.conf.d/extra-riscv64.conf --cachedir=./rootfs/var/cache/pacman/pkg --noconfirm base'
+[2024-03-30T19:43:56+0200] [PACMAN] synchronizing package lists
+[2024-03-30T19:44:59+0200] [ALPM] transaction started
+[2024-03-30T19:44:59+0200] [ALPM] installed iana-etc (20240222-1)
+[2024-03-30T19:44:59+0200] [ALPM] installed filesystem (2024.01.19-1)
+[2024-03-30T19:44:59+0200] [ALPM] installed linux-api-headers (6.7-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed tzdata (2024a-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed glibc (2.39-1.1)
+[2024-03-30T19:45:00+0200] [ALPM] installed gcc-libs (13.2.1-5)
+[2024-03-30T19:45:00+0200] [ALPM] installed ncurses (6.4_20230520-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed readline (8.2.010-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed bash (5.2.026-2)
+[2024-03-30T19:45:00+0200] [ALPM] installed acl (2.3.2-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed attr (2.5.2-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed gmp (6.3.0-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed zlib (1:1.3.1-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed sqlite (3.45.2-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed util-linux-libs (2.40-1)
+[2024-03-30T19:45:00+0200] [ALPM] installed e2fsprogs (1.47.0-2)
+[2024-03-30T19:45:00+0200] [ALPM] installed gdbm (1.23-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed openssl (3.2.1-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libsasl (2.1.28-4)
+[2024-03-30T19:45:01+0200] [ALPM] installed libldap (2.6.7-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed keyutils (1.6.3-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed libevent (2.1.12-4.1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libverto (0.3.2-5)
+[2024-03-30T19:45:01+0200] [ALPM] installed krb5 (1.21.2-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed libtirpc (1.3.4-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed pambase (20230918-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libcap-ng (0.8.4-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed audit (4.0.1-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed libxcrypt (4.4.36-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed pam (1.6.0-4)
+[2024-03-30T19:45:01+0200] [ALPM] installed libcap (2.69-4)
+[2024-03-30T19:45:01+0200] [ALPM] installed coreutils (9.5-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed xz (5.6.1-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed bzip2 (1.0.8-6)
+[2024-03-30T19:45:01+0200] [ALPM] installed libseccomp (2.5.5-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed lz4 (1:1.9.4-3)
+[2024-03-30T19:45:01+0200] [ALPM] installed zstd (1.5.5-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed file (5.45-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed findutils (4.9.0-3)
+[2024-03-30T19:45:01+0200] [ALPM] installed mpfr (4.2.1-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed gawk (5.3.0-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed pcre2 (10.43-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed grep (3.11-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libgpg-error (1.48-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libgcrypt (1.10.3-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed systemd-libs (255.4-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed procps-ng (4.0.4-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed sed (4.9-3)
+[2024-03-30T19:45:01+0200] [ALPM] installed tar (1.35-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed libunistring (1.1-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed icu (74.2-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed libxml2 (2.12.6-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed gettext (0.22.4-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed hwdata (0.380-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed kmod (32-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed pciutils (3.11.1-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed psmisc (23.7-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed shadow (4.15.1-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libutempter (1.2.1-4)
+[2024-03-30T19:45:01+0200] [ALPM] installed util-linux (2.40-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed gzip (1.13-2)
+[2024-03-30T19:45:01+0200] [ALPM] installed licenses (20240206-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed expat (2.6.2-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libarchive (3.7.2-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libffi (3.4.6-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libtasn1 (4.19.0-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libp11-kit (0.25.3-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed p11-kit (0.25.3-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed ca-certificates-utils (20220905-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed ca-certificates-mozilla (3.99-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed ca-certificates (20220905-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed brotli (1.1.0-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libidn2 (2.3.7-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libnghttp2 (1.60.0-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libnghttp3 (1.2.0-1.1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libpsl (0.21.2-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed libssh2 (1.11.0-1)
+[2024-03-30T19:45:01+0200] [ALPM] installed curl (8.6.0-4)
+[2024-03-30T19:45:01+0200] [ALPM] installed nettle (3.9.1-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed gnutls (3.8.4-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed libksba (1.6.6-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed libassuan (2.5.7-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed libusb (1.0.27-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed npth (1.7-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed libsysprof-capture (45.2-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed glib2 (2.80.0-2)
+[2024-03-30T19:45:02+0200] [ALPM] installed json-c (0.17-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed tpm2-tss (4.0.1-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed libsecret (0.21.4-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed pinentry (1.2.1-3)
+[2024-03-30T19:45:02+0200] [ALPM] installed gnupg (2.4.5-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed gpgme (1.23.2-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed pacman-mirrorlist (20230111-1)
+[2024-03-30T19:45:02+0200] [ALPM] installed pacman (6.1.0-3.1)
+[2024-03-30T19:45:02+0200] [ALPM] installed archlinux-keyring (20240313-1)
+[2024-03-30T19:45:03+0200] [ALPM-SCRIPTLET] ==> Appending keys from archlinux.gpg...
+[2024-03-30T19:45:18+0200] [ALPM-SCRIPTLET] ==> Updating trust database...
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] gpg: next trustdb check due at 2024-05-28
+[2024-03-30T19:45:19+0200] [ALPM] installed device-mapper (2.03.23-3)
+[2024-03-30T19:45:19+0200] [ALPM] installed popt (1.19-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed argon2 (20190702-5)
+[2024-03-30T19:45:19+0200] [ALPM] installed cryptsetup (2.7.1-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed dbus (1.14.10-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed dbus-broker (35-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed dbus-broker-units (35-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed kbd (2.6.4-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libelf (0.191-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed systemd (255.4-2)
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Initializing machine ID from random generator.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'sys' with GID 3.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'mem' with GID 8.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'ftp' with GID 11.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'mail' with GID 12.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'log' with GID 19.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'smmsp' with GID 25.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'proc' with GID 26.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'games' with GID 50.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'lock' with GID 54.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'network' with GID 90.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'floppy' with GID 94.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'scanner' with GID 96.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'power' with GID 98.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'nobody' with GID 65534.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'adm' with GID 999.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'wheel' with GID 998.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'utmp' with GID 997.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'audio' with GID 996.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'disk' with GID 995.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'input' with GID 994.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'kmem' with GID 993.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'kvm' with GID 992.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'lp' with GID 991.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'optical' with GID 990.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'render' with GID 989.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'sgx' with GID 988.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'storage' with GID 987.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'tty' with GID 5.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'uucp' with GID 986.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'video' with GID 985.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'users' with GID 984.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'groups' with GID 983.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-journal' with GID 982.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'rfkill' with GID 981.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'bin' with GID 1.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'bin' (n/a) with UID 1 and GID 1.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'daemon' with GID 2.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'daemon' (n/a) with UID 2 and GID 2.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'mail' (n/a) with UID 8 and GID 12.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'ftp' (n/a) with UID 14 and GID 11.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'http' with GID 33.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'http' (n/a) with UID 33 and GID 33.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'nobody' (Kernel Overflow User) with UID 65534 and GID 65534.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'dbus' with GID 81.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'dbus' (System Message Bus) with UID 81 and GID 81.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-coredump' with GID 980.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-coredump' (systemd Core Dumper) with UID 980 and GID 980.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-network' with GID 979.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-network' (systemd Network Management) with UID 979 and GID 979.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-oom' with GID 978.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-oom' (systemd Userspace OOM Killer) with UID 978 and GID 978.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-journal-remote' with GID 977.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-journal-remote' (systemd Journal Remote) with UID 977 and GID 977.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-resolve' with GID 976.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-resolve' (systemd Resolver) with UID 976 and GID 976.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'systemd-timesync' with GID 975.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'systemd-timesync' (systemd Time Synchronization) with UID 975 and GID 975.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'tss' with GID 974.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'tss' (tss user for tpm2) with UID 974 and GID 974.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating group 'uuidd' with GID 68.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Creating user 'uuidd' (n/a) with UID 68 and GID 68.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Created symlink /etc/systemd/system/getty.target.wants/getty@tty1.service → /usr/lib/systemd/system/getty@.service.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Created symlink /etc/systemd/system/multi-user.target.wants/remote-fs.target → /usr/lib/systemd/system/remote-fs.target.
+[2024-03-30T19:45:19+0200] [ALPM-SCRIPTLET] Created symlink /etc/systemd/system/sockets.target.wants/systemd-userdbd.socket → /usr/lib/systemd/system/systemd-userdbd.socket.
+[2024-03-30T19:45:19+0200] [ALPM] installed systemd-sysvcompat (255.4-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed iputils (20240117-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libmnl (1.0.5-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed libnftnl (1.2.6-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libnl (3.9.0-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libpcap (1.10.4-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libnfnetlink (1.0.2-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed libnetfilter_conntrack (1.0.9-2)
+[2024-03-30T19:45:19+0200] [ALPM] installed iptables (1:1.8.10-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed libbpf (1.3.0-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed iproute2 (6.8.0-1)
+[2024-03-30T19:45:19+0200] [ALPM] installed base (3-2)
+[2024-03-30T19:45:19+0200] [ALPM] transaction completed
+[2024-03-30T19:45:20+0200] [ALPM] running '20-systemd-sysusers.hook'...
+[2024-03-30T19:45:20+0200] [ALPM] running '30-systemd-catalog.hook'...
+[2024-03-30T19:45:20+0200] [ALPM] running '30-systemd-daemon-reload-system.hook'...
+[2024-03-30T19:45:20+0200] [ALPM-SCRIPTLET]   Skipped: Running in chroot.
+[2024-03-30T19:45:20+0200] [ALPM] running '30-systemd-daemon-reload-user.hook'...
+[2024-03-30T19:45:20+0200] [ALPM-SCRIPTLET]   Skipped: Running in chroot.
+[2024-03-30T19:45:20+0200] [ALPM] running '30-systemd-hwdb.hook'...
+[2024-03-30T19:45:23+0200] [ALPM] running '30-systemd-sysctl.hook'...
+[2024-03-30T19:45:23+0200] [ALPM-SCRIPTLET]   Skipped: Running in chroot.
+[2024-03-30T19:45:23+0200] [ALPM] running '30-systemd-tmpfiles.hook'...
+[2024-03-30T19:45:23+0200] [ALPM] running '30-systemd-udev-reload.hook'...
+[2024-03-30T19:45:23+0200] [ALPM-SCRIPTLET]   Skipped: Running in chroot.
+[2024-03-30T19:45:23+0200] [ALPM] running '30-systemd-update.hook'...
+[2024-03-30T19:45:24+0200] [ALPM] running '40-update-ca-trust.hook'...
+[2024-03-30T19:45:34+0200] [ALPM] running 'dbus-reload.hook'...
+[2024-03-30T19:45:34+0200] [ALPM-SCRIPTLET]   Skipped: Running in chroot.
+[2024-03-30T19:45:34+0200] [PACMAN] Running 'pacman --sysroot ./rootfs --sync --clean --clean'

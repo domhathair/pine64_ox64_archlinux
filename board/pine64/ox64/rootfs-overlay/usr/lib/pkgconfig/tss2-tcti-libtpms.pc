@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: tss2-tcti-libtpms
+Description: TCTI library for communicating with the libtpms library.
+URL: https://github.com/tpm2-software/tpm2-tss
+Version: 4.0.1
+Cflags: -I${includedir}
+Libs: -ltss2-tcti-libtpms -L${libdir}

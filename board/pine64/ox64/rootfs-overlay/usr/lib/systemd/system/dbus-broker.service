@@ -1,0 +1,19 @@
+[Unit]
+Description=D-Bus System Message Bus
+Documentation=man:dbus-broker-launch(1)
+DefaultDependencies=false
+After=dbus.socket
+Before=basic.target shutdown.target
+Requires=dbus.socket
+Conflicts=shutdown.target
+
+[Service]
+Type=notify
+Sockets=dbus.socket
+OOMScoreAdjust=-900
+LimitNOFILE=16384
+ProtectSystem=full
+PrivateTmp=true
+PrivateDevices=true
+ExecStart=/usr/bin/dbus-broker-launch --scope system --audit
+ExecReload=/usr/bin/busctl call org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus ReloadConfig

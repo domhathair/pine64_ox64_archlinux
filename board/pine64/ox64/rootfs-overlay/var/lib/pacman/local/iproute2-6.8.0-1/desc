@@ -1,0 +1,54 @@
+%NAME%
+iproute2
+
+%VERSION%
+6.8.0-1
+
+%BASE%
+iproute2
+
+%DESC%
+IP Routing Utilities
+
+%URL%
+https://git.kernel.org/pub/scm/network/iproute2/iproute2.git
+
+%ARCH%
+riscv64
+
+%BUILDDATE%
+1710244477
+
+%INSTALLDATE%
+1711820719
+
+%PACKAGER%
+Felix Yan <felixonmars@archlinux.org>
+
+%SIZE%
+2963994
+
+%REASON%
+1
+
+%LICENSE%
+GPL2
+
+%VALIDATION%
+pgp
+
+%DEPENDS%
+glibc
+iptables
+libcap
+libelf
+libbpf
+
+%OPTDEPENDS%
+db5.3: userspace arp daemon
+linux-atm: ATM support
+python: for routel
+
+%PROVIDES%
+iproute
+

@@ -1,0 +1,14 @@
+prefix=/usr
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+host=riscv64-unknown-linux-gnu
+api_version=1
+
+Name: ksba
+Description: X.509 and CMS support library
+Requires: gpg-error
+Version: 1.6.6
+Cflags: -I${includedir} 
+Libs: -L${libdir} -lksba
+URL: https://www.gnupg.org/related_software/libksba/

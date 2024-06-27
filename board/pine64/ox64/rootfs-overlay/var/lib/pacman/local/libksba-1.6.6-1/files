@@ -1,0 +1,16 @@
+%FILES%
+usr/
+usr/include/
+usr/include/ksba.h
+usr/lib/
+usr/lib/libksba.so
+usr/lib/libksba.so.8
+usr/lib/libksba.so.8.14.6
+usr/lib/pkgconfig/
+usr/lib/pkgconfig/ksba.pc
+usr/share/
+usr/share/aclocal/
+usr/share/aclocal/ksba.m4
+usr/share/info/
+usr/share/info/ksba.info.gz
+

@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: tss2-tcti-pcap
+Description: TCTI library for debugging at the TCTI interface.
+URL: https://github.com/tpm2-software/tpm2-tss
+Version: 4.0.1
+Requires.private: tss2-tctildr
+Cflags: -I${includedir}
+Libs: -ltss2-tcti-pcap -L${libdir}

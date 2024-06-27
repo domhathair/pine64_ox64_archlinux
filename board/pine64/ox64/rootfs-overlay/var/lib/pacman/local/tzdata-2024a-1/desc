@@ -1,0 +1,43 @@
+%NAME%
+tzdata
+
+%VERSION%
+2024a-1
+
+%BASE%
+tzdata
+
+%DESC%
+Sources for time zone and daylight saving time data
+
+%URL%
+https://www.iana.org/time-zones
+
+%ARCH%
+riscv64
+
+%BUILDDATE%
+1707003692
+
+%INSTALLDATE%
+1711820700
+
+%PACKAGER%
+Felix Yan <felixonmars@archlinux.org>
+
+%SIZE%
+2072861
+
+%REASON%
+1
+
+%LICENSE%
+LicenseRef-tz
+
+%VALIDATION%
+pgp
+
+%OPTDEPENDS%
+bash: for tzselect
+glibc: for zdump, zic
+

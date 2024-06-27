@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+ 
+Name: libverto-libevent
+Description: Event loop abstraction interface (libevent module)
+Version: 0.3.2
+Libs: -L${libdir} -lverto-libevent
+Cflags: -I${includedir}
+Requires.private: libverto

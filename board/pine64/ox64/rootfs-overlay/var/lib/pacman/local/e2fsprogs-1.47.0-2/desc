@@ -1,0 +1,59 @@
+%NAME%
+e2fsprogs
+
+%VERSION%
+1.47.0-2
+
+%BASE%
+e2fsprogs
+
+%DESC%
+Ext2/3/4 filesystem utilities
+
+%URL%
+http://e2fsprogs.sourceforge.net
+
+%ARCH%
+riscv64
+
+%BUILDDATE%
+1710771106
+
+%INSTALLDATE%
+1711820700
+
+%PACKAGER%
+Felix Yan <felixonmars@archlinux.org>
+
+%SIZE%
+5020016
+
+%REASON%
+1
+
+%LICENSE%
+GPL
+LGPL
+MIT
+
+%VALIDATION%
+pgp
+
+%DEPENDS%
+sh
+util-linux-libs
+
+%OPTDEPENDS%
+lvm2: for e2scrub
+util-linux: for e2scrub
+smtp-forwarder: for e2scrub_fail script
+
+%PROVIDES%
+libcom_err.so=2-64
+libe2p.so=2-64
+libext2fs.so=2-64
+libss.so=2-64
+
+%XDATA%
+pkgtype=split
+

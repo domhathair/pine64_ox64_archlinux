@@ -1,0 +1,46 @@
+%NAME%
+libgpg-error
+
+%VERSION%
+1.48-1
+
+%BASE%
+libgpg-error
+
+%DESC%
+Support library for libgcrypt
+
+%URL%
+https://www.gnupg.org
+
+%ARCH%
+riscv64
+
+%BUILDDATE%
+1708731698
+
+%INSTALLDATE%
+1711820701
+
+%PACKAGER%
+Felix Yan <felixonmars@archlinux.org>
+
+%SIZE%
+1079430
+
+%REASON%
+1
+
+%LICENSE%
+LGPL-2.1-or-later
+BSD-3-Clause OR LGPL-2.1-or-later
+FSFULLR
+GPL-2.0-or-later
+
+%VALIDATION%
+pgp
+
+%DEPENDS%
+glibc
+sh
+

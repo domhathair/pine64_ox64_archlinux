@@ -1,0 +1,18 @@
+%FILES%
+etc/
+etc/pam.d/
+etc/pam.d/other
+etc/pam.d/system-auth
+etc/pam.d/system-local-login
+etc/pam.d/system-login
+etc/pam.d/system-remote-login
+etc/pam.d/system-services
+
+%BACKUP%
+etc/pam.d/system-auth	d1543c7212da9e907043c5b7eeba389f
+etc/pam.d/system-local-login	477237985820117a0e6e1b13a86eb599
+etc/pam.d/system-login	8334eafa143f091828fc86c8ca933669
+etc/pam.d/system-remote-login	477237985820117a0e6e1b13a86eb599
+etc/pam.d/system-services	6969307eef026979703a6eba33c2e3eb
+etc/pam.d/other	cd547dd7cf93fffcf02eef49c5009044
+

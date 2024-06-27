@@ -1,0 +1,58 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.31. pam_sepermit - allow/reject access based on SELinux mode</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_selinux.html" title="6.30. pam_selinux - set the default security context"><link rel="next" href="sag-pam_setquota.html" title="6.32. pam_setquota - set or modify disk quotas on session start"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.31. pam_sepermit - allow/reject access based on SELinux mode</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_selinux.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_setquota.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_sepermit"></a>6.31. pam_sepermit - allow/reject access based on SELinux mode</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">pam_sepermit.so</code>  [
+	debug
+      ] [
+	conf=<em class="replaceable"><code>/path/to/config/file</code></em>
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-description"></a>6.31.1. DESCRIPTION</h3></div></div></div><p>
+      The pam_sepermit module allows or denies login depending on SELinux
+      enforcement state.
+    </p><p>
+      When the user which is logging in matches an entry in the config file
+      he is allowed access only when the SELinux is in enforcing mode. Otherwise
+      he is denied access. For users not matching any entry in the config file
+      the pam_sepermit module returns PAM_IGNORE return value.
+    </p><p>
+      The config file contains a list of user names one per line with optional arguments. If the
+      <em class="replaceable"><code>name</code></em> is prefixed with <span class="emphasis"><em>@</em></span> character it means that all
+      users in the group <em class="replaceable"><code>name</code></em> match. If it is prefixed
+      with a <span class="emphasis"><em>%</em></span> character the SELinux user is used to match against the <em class="replaceable"><code>name</code></em>
+      instead of the account name. Note that when SELinux is disabled the
+      SELinux user assigned to the account cannot be determined. This means that
+      such entries are never matched when SELinux is disabled and pam_sepermit
+      will return PAM_IGNORE.
+    </p><p>
+      See <span class="citerefentry"><span class="refentrytitle">sepermit.conf</span>(5)</span> for details.
+    </p><p>
+      If there is no explicitly specified configuration file and
+      <code class="filename">/etc/security/sepermit.conf</code> does not exist,
+      <code class="filename">%vendordir%/security/sepermit.conf</code> is used.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-options"></a>6.31.2. OPTIONS</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          debug
+        </span></dt><dd><p>
+           Turns on debugging via
+	    <span class="citerefentry"><span class="refentrytitle">syslog</span>(3)</span>.
+          </p></dd><dt><span class="term">
+          conf=/path/to/config/file
+        </span></dt><dd><p>
+            Path to alternative config file overriding the default.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-types"></a>6.31.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+      The <code class="option">auth</code> and <code class="option">account</code>
+      module types are provided.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-return_values"></a>6.31.4. RETURN VALUES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_AUTH_ERR</span></dt><dd><p>
+            SELinux is disabled or in the permissive mode and the user
+            matches.
+          </p></dd><dt><span class="term">PAM_SUCCESS</span></dt><dd><p>
+            SELinux is in the enforcing mode and the user matches.
+          </p></dd><dt><span class="term">PAM_IGNORE</span></dt><dd><p>
+            The user does not match any entry in the config file.
+          </p></dd><dt><span class="term">PAM_USER_UNKNOWN</span></dt><dd><p>
+            The module was unable to determine the user's name.
+          </p></dd><dt><span class="term">PAM_SERVICE_ERR</span></dt><dd><p>
+            Error during reading or parsing the config file.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-files"></a>6.31.5. FILES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">/etc/security/sepermit.conf</span></dt><dd><p>Default configuration file</p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-examples"></a>6.31.6. EXAMPLES</h3></div></div></div><pre class="programlisting">
+auth     [success=done ignore=ignore default=bad] pam_sepermit.so
+auth     required  pam_unix.so
+account  required  pam_unix.so
+session  required  pam_permit.so
+    </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_sepermit-author"></a>6.31.7. AUTHOR</h3></div></div></div><p>
+        pam_sepermit and this manual page were written by Tomas Mraz &lt;tmraz@redhat.com&gt;.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_selinux.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_setquota.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.30. pam_selinux - set the default security context </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.32. pam_setquota - set or modify disk quotas on session start</td></tr></table></div></body></html>

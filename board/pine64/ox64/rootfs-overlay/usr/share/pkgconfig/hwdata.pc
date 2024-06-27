@@ -1,0 +1,8 @@
+prefix=/usr
+datadir=${prefix}/share
+pkgdatadir=${pc_sysrootdir}${datadir}/hwdata
+
+Name: hwdata
+Description: Hardware identification and configuration data
+Version: 0.380
+URL: https://github.com/vcrhonek/hwdata

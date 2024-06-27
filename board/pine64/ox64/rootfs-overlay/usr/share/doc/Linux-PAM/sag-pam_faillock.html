@@ -1,0 +1,166 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.9. pam_faillock - temporarily locking access based on failed authentication attempts during an interval</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_faildelay.html" title="6.8. pam_faildelay - change the delay on failure per-application"><link rel="next" href="sag-pam_filter.html" title="6.10. pam_filter - filter module"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.9. pam_faillock - temporarily locking access based on failed authentication attempts during an interval</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_faildelay.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_filter.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_faillock"></a>6.9. pam_faillock - temporarily locking access based on failed authentication attempts during an interval</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">auth ... pam_faillock.so</code>  {
+        preauth|authfail|authsucc
+      } [
+        conf=<em class="replaceable"><code>/path/to/config-file</code></em>
+      ] [
+        dir=<em class="replaceable"><code>/path/to/tally-directory</code></em>
+      ] [
+        even_deny_root
+      ] [
+        deny=<em class="replaceable"><code>n</code></em>
+      ] [
+        fail_interval=<em class="replaceable"><code>n</code></em>
+      ] [
+        unlock_time=<em class="replaceable"><code>n</code></em>
+      ] [
+        root_unlock_time=<em class="replaceable"><code>n</code></em>
+      ] [
+        admin_group=<em class="replaceable"><code>name</code></em>
+      ] [
+        audit
+      ] [
+        silent
+      ] [
+        no_log_info
+      ]</p></div><div class="cmdsynopsis"><p><code class="command">account ... pam_faillock.so</code>  [
+        dir=<em class="replaceable"><code>/path/to/tally-directory</code></em>
+      ] [
+        no_log_info
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-description"></a>6.9.1. DESCRIPTION</h3></div></div></div><p>
+      This module maintains a list of failed authentication attempts per
+      user during a specified interval and locks the account in case
+      there were more than <em class="replaceable"><code>deny</code></em> consecutive
+      failed authentications.
+    </p><p>
+      Normally, failed attempts to authenticate <span class="emphasis"><em>root</em></span> will
+      <span class="emphasis"><em>not</em></span> cause the root account to become
+      blocked, to prevent denial-of-service: if your users aren't given
+      shell accounts and root may only login via <span class="command"><strong>su</strong></span> or
+      at the machine console (not telnet/rsh, etc), this is safe.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-options"></a>6.9.2. OPTIONS</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+                {preauth|authfail|authsucc}
+              </span></dt><dd><p>
+                  This argument must be set accordingly to the position of this module
+                  instance in the PAM stack.
+                </p><p>
+                  The <span class="emphasis"><em>preauth</em></span> argument must be used when the module
+                  is called before the modules which ask for the user credentials such
+                  as the password. The module just examines whether the user should
+                  be blocked from accessing the service in case there were anomalous
+                  number of failed consecutive authentication attempts recently. This
+                  call is optional if <span class="emphasis"><em>authsucc</em></span> is used.
+                </p><p>
+                  The <span class="emphasis"><em>authfail</em></span> argument must be used when the module
+                  is called after the modules which determine the authentication outcome,
+                  failed. Unless the user is already blocked due to previous authentication
+                  failures, the module will record the failure into the appropriate user
+                  tally file.
+                </p><p>
+                  The <span class="emphasis"><em>authsucc</em></span> argument must be used when the module
+                  is called after the modules which determine the authentication outcome,
+                  succeeded. Unless the user is already blocked due to previous authentication
+                  failures, the module will then clear the record of the failures in the
+                  respective user tally file. Otherwise it will return authentication error.
+                  If this call is not done, the pam_faillock will not distinguish between
+                  consecutive and non-consecutive failed authentication attempts. The
+                  <span class="emphasis"><em>preauth</em></span> call must be used in such case. Due to
+                  complications in the way the PAM stack can be configured it is also
+                  possible to call <span class="emphasis"><em>pam_faillock</em></span> as an account module.
+                  In such configuration the module must be also called in the
+                  <span class="emphasis"><em>preauth</em></span> stage.
+                </p></dd><dt><span class="term">
+                 conf=/path/to/config-file
+               </span></dt><dd><p>
+                   Use another configuration file instead of the default
+                   <code class="filename">/etc/security/faillock.conf</code>.
+                 </p><p>
+                   Use another configuration file instead of the default
+                   which is to use the file
+                   <code class="filename">/etc/security/faillock.conf</code> or,
+                   if that one is not present, the file
+                   <code class="filename">%vendordir%/security/faillock.conf</code>.
+                 </p></dd></dl></div><p>
+          The options for configuring the module behavior are described in the
+          <span class="citerefentry"><span class="refentrytitle">faillock.conf</span>(5)</span> manual page. The options specified on the module command
+          line override the values from the configuration file.
+        </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-types"></a>6.9.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+      The <code class="option">auth</code> and <code class="option">account</code> module types are
+      provided.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-return_values"></a>6.9.4. RETURN VALUES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_AUTH_ERR</span></dt><dd><p>
+            An invalid option was given, the module was not able
+            to retrieve the user name, no valid counter file
+            was found, or too many failed logins.
+          </p></dd><dt><span class="term">PAM_BUF_ERR</span></dt><dd><p>
+            Memory buffer error.
+          </p></dd><dt><span class="term">PAM_CONV_ERR</span></dt><dd><p>
+            The conversation method supplied by the application
+            failed to obtain the username.
+          </p></dd><dt><span class="term">PAM_INCOMPLETE</span></dt><dd><p>
+            The conversation method supplied by the application
+            returned PAM_CONV_AGAIN.
+          </p></dd><dt><span class="term">PAM_SUCCESS</span></dt><dd><p>
+            Everything was successful.
+          </p></dd><dt><span class="term">PAM_IGNORE</span></dt><dd><p>
+            User not present in passwd database.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-examples"></a>6.9.5. EXAMPLES</h3></div></div></div><p>
+      Here are two possible configuration examples for <code class="filename">/etc/pam.d/login</code>.
+      They make <span class="emphasis"><em>pam_faillock</em></span> to lock the account after 4 consecutive
+      failed logins during the default interval of 15 minutes. Root account will be locked
+      as well. The accounts will be automatically unlocked after 20 minutes.
+    </p><p>
+      In the first example the module is called only in the <span class="emphasis"><em>auth</em></span>
+      phase and the module does not print any information about the account being blocked
+      by <span class="emphasis"><em>pam_faillock</em></span>. The <span class="emphasis"><em>preauth</em></span> call can
+      be added to tell users that their logins are blocked by the module and also to abort
+      the authentication without even asking for password in such case.
+    </p><p>
+      <code class="filename">/etc/security/faillock.conf</code> file example:
+    </p><pre class="programlisting">
+deny=4
+unlock_time=1200
+silent
+    </pre><p>
+      /etc/pam.d/config file example:
+    </p><pre class="programlisting">
+auth     required       pam_securetty.so
+auth     required       pam_env.so
+auth     required       pam_nologin.so
+# optionally call: auth requisite pam_faillock.so preauth
+# to display the message about account being locked
+auth     [success=1 default=bad] pam_unix.so
+auth     [default=die]  pam_faillock.so authfail
+auth     sufficient     pam_faillock.so authsucc
+auth     required       pam_deny.so
+account  required       pam_unix.so
+password required       pam_unix.so shadow
+session  required       pam_selinux.so close
+session  required       pam_loginuid.so
+session  required       pam_unix.so
+session  required       pam_selinux.so open
+    </pre><p>
+      In the second example the module is called both in the <span class="emphasis"><em>auth</em></span>
+      and <span class="emphasis"><em>account</em></span> phases and the module informs the authenticating
+      user when the account is locked if <code class="option">silent</code> option is not
+      specified in the <code class="filename">faillock.conf</code>.
+    </p><pre class="programlisting">
+auth     required       pam_securetty.so
+auth     required       pam_env.so
+auth     required       pam_nologin.so
+auth     required       pam_faillock.so preauth
+# optionally use requisite above if you do not want to prompt for the password
+# on locked accounts
+auth     sufficient     pam_unix.so
+auth     [default=die]  pam_faillock.so authfail
+auth     required       pam_deny.so
+account  required       pam_faillock.so
+# if you drop the above call to pam_faillock.so the lock will be done also
+# on non-consecutive authentication failures
+account  required       pam_unix.so
+password required       pam_unix.so shadow
+session  required       pam_selinux.so close
+session  required       pam_loginuid.so
+session  required       pam_unix.so
+session  required       pam_selinux.so open
+    </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_faillock-author"></a>6.9.6. AUTHOR</h3></div></div></div><p>
+        pam_faillock was written by Tomas Mraz.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_faildelay.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_filter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.8. pam_faildelay - change the delay on failure per-application </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.10. pam_filter - filter module</td></tr></table></div></body></html>

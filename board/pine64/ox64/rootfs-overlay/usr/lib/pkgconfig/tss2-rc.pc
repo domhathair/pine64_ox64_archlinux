@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: tss2-rc
+Description: TPM2 error decoding library.
+URL: https://github.com/tpm2-software/tpm2-tss
+Version: 4.0.1
+Cflags: -I${includedir} -I${includedir}/tss2
+Libs: -ltss2-rc -L${libdir}

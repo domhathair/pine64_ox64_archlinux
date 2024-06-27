@@ -1,0 +1,125 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.32. pam_setquota - set or modify disk quotas on session start</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_sepermit.html" title="6.31. pam_sepermit - allow/reject access based on SELinux mode"><link rel="next" href="sag-pam_shells.html" title="6.33. pam_shells - check for valid login shell"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.32. pam_setquota - set or modify disk quotas on session start</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_sepermit.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_shells.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_setquota"></a>6.32. pam_setquota - set or modify disk quotas on session start</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">pam_setquota.so</code>  [
+        fs=<em class="replaceable"><code>/home</code></em>
+      ] [
+        overwrite=<em class="replaceable"><code>0</code></em>
+      ] [
+        debug=<em class="replaceable"><code>0</code></em>
+      ] [
+        startuid=<em class="replaceable"><code>1000</code></em>
+      ] [
+        enduid=<em class="replaceable"><code>0</code></em>
+      ] [
+        bsoftlimit=<em class="replaceable"><code>19000</code></em>
+      ] [
+        bhardlimit=<em class="replaceable"><code>20000</code></em>
+      ] [
+        isoftlimit=<em class="replaceable"><code>3000</code></em>
+      ] [
+        ihardlimit=<em class="replaceable"><code>4000</code></em>
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-description"></a>6.32.1. DESCRIPTION</h3></div></div></div><p>
+      pam_setquota is a PAM module to set or modify a disk quota at session start
+    </p><p>
+      This makes quotas usable with central user databases, such as MySQL or LDAP.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-options"></a>6.32.2. OPTIONS</h3></div></div></div><p>
+      </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+            fs=/home
+          </span></dt><dd><p>
+             The device file or mountpoint the policy applies to. Defaults to the
+             filesystem containing the users home directory.
+            </p></dd><dt><span class="term">
+            overwrite=0
+          </span></dt><dd><p>
+             Overwrite an existing quota. Note: Enabling this will remove the ability
+             for the admin to manually configure different quotas for users for a
+             filesystem with <span class="citerefentry"><span class="refentrytitle">edquota</span>(8)</span>. (Defaults to 0)
+            </p></dd><dt><span class="term">
+            debug=0
+          </span></dt><dd><p>
+             Enable debugging. A value of 1 outputs the old and new quota on a device.
+             A value of 2 also prints out the matched and found filesystems should
+             <code class="option">fs</code> be unset. (Defaults to 0)
+            </p></dd><dt><span class="term">
+            startuid=1000
+          </span></dt><dd><p>
+             Describe the start of the UID range the policy is applied to.
+             (Defaults to UID_MIN from login.defs or the uidmin value defined
+             at compile-time if UID_MIN is undefined.)
+            </p></dd><dt><span class="term">
+            enduid=0
+          </span></dt><dd><p>
+             Describe the end of the UID range the policy is applied to. Setting
+             <span class="emphasis"><em>enduid=0</em></span> results in an open-ended UID
+             range (i.e. all uids greater than <code class="option">startuid</code> are
+             included). (Defaults to 0)
+            </p></dd><dt><span class="term">
+            bsoftlimit=19000
+          </span></dt><dd><p>
+              Soft limit for disk quota blocks, as defined by <span class="citerefentry"><span class="refentrytitle">quotactl</span>(2)</span>.
+              Note: <code class="option">bsoftlimit</code> and <code class="option">bhardlimit</code>
+              <span class="emphasis"><em>must</em></span> be set at the same time!
+            </p></dd><dt><span class="term">
+            bhardlimit=20000
+          </span></dt><dd><p>
+              Hard limit for disk quota blocks, as defined by <span class="citerefentry"><span class="refentrytitle">quotactl</span>(2)</span>.
+              Note: <code class="option">bsoftlimit</code> and <code class="option">bhardlimit</code>
+              <span class="emphasis"><em>must</em></span> be set at the same time!
+            </p></dd><dt><span class="term">
+            isoftlimit=3000
+          </span></dt><dd><p>
+              Soft limit for inodes, as defined by <span class="citerefentry"><span class="refentrytitle">
+              quotactl</span>(2)</span>.
+              Note: <code class="option">isoftlimit</code> and <code class="option">ihardlimit</code>
+              <span class="emphasis"><em>must</em></span> be set at the same time!
+            </p></dd><dt><span class="term">
+            ihardlimit=4000
+          </span></dt><dd><p>
+              Hard limit for inodes, as defined by <span class="citerefentry"><span class="refentrytitle">
+              quotactl</span>(2)</span>.
+              Note: <code class="option">isoftlimit</code> and <code class="option">ihardlimit</code>
+              <span class="emphasis"><em>must</em></span> be set at the same time!
+            </p></dd></dl></div><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-types"></a>6.32.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+       Only the <code class="option">session</code> module type is provided.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-return_values"></a>6.32.4. RETURN VALUES</h3></div></div></div><p>
+      </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_SUCCESS</span></dt><dd><p>
+              The quota was set successfully.
+            </p></dd><dt><span class="term">PAM_IGNORE</span></dt><dd><p>
+              No action was taken because either the UID of the user was outside
+              of the specified range, a quota already existed and
+              <code class="option">overwrite=1</code> was not configured or no limits were
+              configured at all.
+            </p></dd><dt><span class="term">PAM_USER_UNKNOWN</span></dt><dd><p>
+              The user was not found.
+            </p></dd><dt><span class="term">PAM_PERM_DENIED</span></dt><dd><p>
+               <code class="filename">/proc/mounts</code> could not be opened.
+            </p><p>
+               The filesystem or device specified was not found.
+            </p><p>
+               The limits for the user could not be retrieved. See syslog for
+               more information.
+            </p><p>
+               The limits for the user could not be set. See syslog for
+               more information.
+            </p><p>
+               Either <code class="option">isoftlimit</code>/<code class="option">ihardlimit</code>
+               or <code class="option">bsoftlimit</code>/<code class="option">bhardlimit</code> were
+               not set at the same time.
+            </p></dd></dl></div><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-examples"></a>6.32.5. EXAMPLES</h3></div></div></div><p>
+    A single invocation of `pam_setquota` applies a specific policy to a UID
+    range. Applying different policies to specific UID ranges is done by
+    invoking pam_setquota more than once. The last matching entry
+    defines the resulting quota.
+    </p><pre class="programlisting">
+      session  required   pam_setquota.so bsoftlimit=1000 bhardlimit=2000 isoftlimit=1000 ihardlimit=2000 startuid=1000 enduid=0 fs=/home
+      session  required   pam_setquota.so bsoftlimit=19000 bhardlimit=20000 isoftlimit=3000 ihardlimit=4000 startuid=2001 enduid=3000 fs=/dev/sda1
+      session  required   pam_setquota.so bsoftlimit=19000 bhardlimit=20000 isoftlimit=3000 ihardlimit=4000 startuid=3001 enduid=4000 fs=/dev/sda1 overwrite=1
+    </pre><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_setquota-author"></a>6.32.6. AUTHOR</h3></div></div></div><p>
+       pam_setquota was originally written by
+       Ruslan Savchenko &lt;savrus@mexmat.net&gt;.
+      </p><p>
+       Further modifications were made by Shane Tzen &lt;shane@ict.usc.edu&gt;,
+       Sven Hartge &lt;sven@svenhartge.de&gt;
+       and Keller Fuchs &lt;kellerfuchs@hashbang.sh&gt;.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_sepermit.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_shells.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.31. pam_sepermit - allow/reject access based on SELinux mode </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.33. pam_shells - check for valid login shell</td></tr></table></div></body></html>

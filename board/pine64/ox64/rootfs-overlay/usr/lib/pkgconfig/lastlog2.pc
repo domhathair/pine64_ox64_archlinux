@@ -1,0 +1,10 @@
+prefix=/usr
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: lastlog2
+Description: library to manage last login data
+Version: 2.40.0
+Requires.private: sqlite3
+Libs: -L${libdir} -llastlog2
+Cflags: -I${includedir}/lastlog2

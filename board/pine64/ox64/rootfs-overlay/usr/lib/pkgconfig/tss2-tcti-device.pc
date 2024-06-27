@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: tss2-tcti-device
+Description: TCTI library for communicating with a TPM device node.
+URL: https://github.com/tpm2-software/tpm2-tss
+Version: 4.0.1
+Requires.private: tss2-mu
+Cflags: -I${includedir} -I${includedir}/tss2
+Libs: -ltss2-tcti-device -L${libdir}

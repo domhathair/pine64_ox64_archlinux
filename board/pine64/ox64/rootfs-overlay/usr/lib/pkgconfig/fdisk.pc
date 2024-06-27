@@ -1,0 +1,10 @@
+prefix=/usr
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: fdisk
+Description: fdisk library
+Version: 2.40.0
+Requires.private: blkid, uuid
+Libs: -L${libdir} -lfdisk
+Cflags: -I${includedir}/libfdisk

@@ -1,0 +1,16 @@
+%FILES%
+usr/
+usr/bin/
+usr/bin/halt
+usr/bin/init
+usr/bin/poweroff
+usr/bin/reboot
+usr/bin/shutdown
+usr/share/
+usr/share/man/
+usr/share/man/man8/
+usr/share/man/man8/halt.8.gz
+usr/share/man/man8/poweroff.8.gz
+usr/share/man/man8/reboot.8.gz
+usr/share/man/man8/shutdown.8.gz
+

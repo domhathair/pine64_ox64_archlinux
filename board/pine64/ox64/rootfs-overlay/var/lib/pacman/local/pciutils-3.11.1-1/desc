@@ -1,0 +1,49 @@
+%NAME%
+pciutils
+
+%VERSION%
+3.11.1-1
+
+%BASE%
+pciutils
+
+%DESC%
+PCI bus configuration space access library and tools
+
+%URL%
+https://mj.ucw.cz/sw/pciutils/
+
+%ARCH%
+riscv64
+
+%BUILDDATE%
+1709160721
+
+%INSTALLDATE%
+1711820701
+
+%PACKAGER%
+Felix Yan <felixonmars@archlinux.org>
+
+%SIZE%
+333796
+
+%REASON%
+1
+
+%LICENSE%
+GPL2
+
+%VALIDATION%
+pgp
+
+%DEPENDS%
+glibc
+hwdata
+kmod
+
+%OPTDEPENDS%
+which: for update-pciids
+grep: for update-pciids
+curl: for update-pciids
+

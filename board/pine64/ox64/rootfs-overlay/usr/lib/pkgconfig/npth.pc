@@ -1,0 +1,13 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+api_version=1
+host=riscv64-unknown-linux-gnu
+
+Name: npth
+Description: New GNU Portable Threads Library
+Version: 1.7-unknown
+Libs: -L${libdir} -lnpth  
+Cflags: -I${includedir} 
+URL: https://www.gnupg.org/software/npth/index.html

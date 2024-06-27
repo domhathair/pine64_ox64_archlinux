@@ -1,0 +1,17 @@
+%FILES%
+usr/
+usr/include/
+usr/include/nghttp3/
+usr/include/nghttp3/nghttp3.h
+usr/include/nghttp3/version.h
+usr/lib/
+usr/lib/libnghttp3.so
+usr/lib/libnghttp3.so.9
+usr/lib/libnghttp3.so.9.2.0
+usr/lib/pkgconfig/
+usr/lib/pkgconfig/libnghttp3.pc
+usr/share/
+usr/share/licenses/
+usr/share/licenses/libnghttp3/
+usr/share/licenses/libnghttp3/COPYING
+

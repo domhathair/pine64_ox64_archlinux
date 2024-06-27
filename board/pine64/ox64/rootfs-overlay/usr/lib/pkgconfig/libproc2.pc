@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/
+libdir=/usr/lib
+includedir=${prefix}/include
+
+Name: libproc2
+Description: Library to control and query process state
+Version: 4.0.4
+Libs: -L${libdir} -lproc2
+Libs.private:
+Cflags: -I${includedir}

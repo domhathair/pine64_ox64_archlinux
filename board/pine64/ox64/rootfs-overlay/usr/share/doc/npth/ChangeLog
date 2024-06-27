@@ -1,0 +1,1037 @@
+2024-02-23  Werner Koch  <wk@gnupg.org>
+
+	Release 1.7.
+	+ commit 150dc11942c90ff8190c2d48344eb4c1c48c7cd8
+	* configure.ac: Bump LT version C2/A2/R0.
+
+	Add a release build target.
+	+ commit f0091f3ef96acd4bc879f7bc9700679a0f619d21
+	* Makefile.am: Add release targets.
+
+2024-01-22  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Clean up handling of unsafe semaphore.
+	+ commit 99e1174f6054d94364a86b00203a1ccf35eb3b69
+	* configure.ac (HAVE_FORK_UNSAFE_SEMAPHORE): Remove.
+	(NPTH_FORK_FAILURE): New conditional.
+	* src/npth.c (NPTH_SEMAPHORE_PSHARED): Remove.
+	(npth_init): Simply use a semaphore not shared by multiple processes.
+	* tests/Makefile.am (t-fork): XFAIL_TESTS on AIX.
+
+2023-09-01  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Change the default for --with-libtool-modification.
+	+ commit e6b90ae73222d240ae80fe62718ae270e07a0547
+	* configure.ac (--with-libtool-modification): default=never.
+
+2023-08-16  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: New configure option --with-libtool-modification.
+	+ commit bcbcb7649229f0c709747dde50884fe87e93587f
+	* Makefile.am (EXTRA_DIST): Add build-aux/libtool-patch.sed.
+	* build-aux/libtool-patch.sed: New.
+	* configure.ac (--with-libtool-modification): New.
+	* build-aux/ltmain.sh: Revert our own local modification.
+
+2023-05-30  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Initialize variable to silence compiler warning.
+	+ commit a075e11080bfdf56293bccead23e4287f18be565
+	* w32/npth.c (mutex_init_check): Initialize.
+
+2023-05-12  NIIBE Yutaka  <gniibe@fsij.org>
+
+	tests: Use -no-fast-install LDFLAGS for Windows.
+	+ commit 7b9dc4d24979f6054c5cb51f72b7a741fc802d41
+	* tests/Makefile.am [HAVE_W32_SYSTEM] (AM_LDFLAGS): Conditionalize.
+
+2023-04-14  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Fix npth_rwlock_destroy.
+	+ commit fc7ee9524991c74aee46dc55f17467d077004666
+	* w32/npth.c (npth_rwlock_destroy): Dereference RWLOCK.
+
+2023-01-17  NIIBE Yutaka  <gniibe@fsij.org>
+
+	POSIX: Don't include unused symbols in the version control.
+	+ commit bd356d82394447b51b2505756094d6475e160a4b
+	* src/libnpth.vers: Remove npth_sigmask and npth_sigwait symbols.
+
+2022-11-01  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Prefer gpgrt-config when available.
+	+ commit 3939b86b20d1c6a828b1dbe67f523cc0a4ebecf6
+	* src/npth.m4: Overriding the decision by --with-npth-prefix, use
+	gpgrt-config npth when gpgrt-config is available.
+
+2022-10-05  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Add comment for our intentional casting for TlsSetValue.
+	+ commit e894f0197fb48cd0957abc994ac9dd8a960950c6
+	* w32/npth.c (npth_setspecific): Use union to express it's
+	intentional casting.
+
+2022-09-21  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Revert "Don't use symbol/macro which starts with _."
+	+ commit 61ae94a7489aff4e4142d722bdaf577b5d71fb53
+	This reverts commit 317885a6b11ff6cb3c7c6134be37f345751d807c.
+
+2022-09-20  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Don't use symbol/macro which starts with _.
+	+ commit 317885a6b11ff6cb3c7c6134be37f345751d807c
+	* configure.ac (npth_socklen_t): Rename from _npth_socklen_t.
+	(NPTH_NO_RWLOCK): Rename from _NPTH_NO_RWLOCK.
+	* src/npth-sigev.c (sigev_handler): Rename from _sigev_handler.
+	* src/npth.c: Use NPTH_NO_RWLOCK.
+	* src/npth.h.in: Use NPTH_H, NPTH_NO_RWLOCK, and npth_socklen_t.
+	* w32/npth.c (npth_debug): Rename from _npth_debug.
+	* w32/npth.h: Use NPTH_H.
+
+2022-07-19  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Update config.guess and config.sub.
+	+ commit 70fb608c3bf733a0da8c23b9b3e997ab1fb6739a
+	* build-aux/config.guess: Update from upstream.
+	* build-aux/config.sub: Ditto.
+
+2022-03-31  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Don't install npth-config by default.
+	+ commit 2b6a8e5369ed37d64d1bafd3a546ec52e25acd26
+	* configure.ac (--enable-install-npth-config): New.
+	* Makefile.am: Conditionalize installation of npth-config.
+
+2022-03-24  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Remove fallback definition of struct timespec.
+	+ commit ebdc0da1fc416cb9f7edf9e490a15b7a8fe94b55
+	* w32/npth.h [!__MINGW64_VERSION_MAJOR] (struct timespec): Remove.
+
+2022-03-23  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Don't include src/npth.h in the distribution.
+	+ commit 7e83227e18a42c051c4cc6a1f68188d556764ab2
+	* src/Makefile.am (libnpth_la_SOURCES): Remove npth.h.
+
+2022-03-22  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Don't allocate attribute internally.
+	+ commit ed674b9eb2187bf5ea517b2d1fbbb88e667964aa
+	* w32/npth.c (npth_create): Examine ->detachstate directly when
+	USER_ATTR != NULL.  Remove allocation of ATTR.
+	(npth_rwlock_init): Examine ->kind directly when USER_ATTR != NULL.
+	Remove allocation of ATTR.
+	(npth_clock_gettime): Remove unused USECS variable.
+	(calculate_timeout, npth_tryjoin_np): Remove unused RES variable.
+	(npth_join, onpth_mutex_trylock): Likewise.
+	(npth_cond_broadcast): Remove unused ANY variable.
+	(rwlock_init_check): It's not used, so, if-out by preprocessor.
+	(npth_eselect): Remove unused sock_event_idx variable.
+
+2022-01-25  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Fix npth_ppoll when !HAVE_PPOLL.
+	+ commit 0e16575e69a359de5564d1874ef24e93e1561718
+	* src/npth.c [!HAVE_PPOLL] (npth_ppoll): Use T to call poll.
+
+2021-12-22  NIIBE Yutaka  <gniibe@fsij.org>
+
+	posix: Add npth_poll/npth_ppoll.
+	+ commit b5ecd8d2c6fdb988f6139c5157c124ebea293bd7
+	* configure.ac: Add checks for poll.h and ppoll.
+
+	build: Remove unused m4/sys_socket_h.m4.
+	+ commit e73ae33adfbc570d06b8f791e2cd731168582646
+	* m4/sys_socket_h.m4: Remove.
+
+2021-11-10  NIIBE Yutaka  <gniibe@fsij.org>
+
+	libtool: Link without -flat_namespace for macOS.
+	+ commit 854b3fd1d66c968d76d7df1fea60671215af1380
+	* m4/libtool.m4: Not setting 10.0 to MACOSX_DEPLOYMENT_TARGET when not
+	defined.  Only specify -flat_namespace to linker for specific
+	(older) versions and hosts.
+
+2021-05-31  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Add -Wpointer-arith if available.
+	+ commit 5020c2b9c9398b7c744742f4a6c32efc2b54dc14
+	* configure.ac: Add -Wpointer-arith if available.
+
+	tests: Minor fixes for test programs.
+	+ commit 1b4ca92e720cdc047e0b795fdc5ed966af8bdf32
+	* tests/t-mutex.c (main): Support --verbose to put verbose messages.
+	* tests/t-thread.c (thread_one): Remove unused variable.
+
+2021-05-14  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Fix detecting pthread library.
+	+ commit 6629a4b8015cc8298ea00144c56c9ca8828357ba
+	* configure.ac: Use pthread_cancel to detect pthread library.
+
+2020-11-17  NIIBE Yutaka  <gniibe@fsij.org>
+
+	m4: Update with newer autoconf constructs.
+	+ commit 7e45b50a4034735bad8ba99a003bbf986c664d8c
+	* src/npth.m4: Replace AC_HELP_STRING to AS_HELP_STRING.
+
+	build: Update to newer autoconf constructs.
+	+ commit f73f942286521045795b7caeb2e54e1b81f88d19
+	* configure.ac: Use AC_USE_SYSTEM_EXTENSIONS instead of AC_GNU_SOURCE.
+	Use AS_HELP_STRING instead of AC_HELP_STRING.
+	* m4/socklen.m4: Update from gnulib.
+	* m4/libtool.m4: Update from libgpg-error.
+
+2020-08-24  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Conditionally enable busy_wait_for.
+	+ commit 02ce6b2d27f91ed6285e4e92d99c21bcc7823c9b
+	* src/npth.c [!HAVE_PTHREAD_MUTEX_TIMEDLOCK] (busy_wait_for):
+	Conditionalize.
+
+2019-12-16  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Fix how we expose rwlock API.
+	+ commit 09a12a679ec0bb3d8a46757c8df65166949eb223
+	* configure.ac (INSERT_EXPOSE_RWLOCK_API): Don't use CPP macro
+	_NPTH_EXPOSE_RWLOCK_API.
+	* src/npth.h.in: Directly put the subst var of
+	INSERT_EXPOSE_RWLOCK_API.
+
+2019-07-18  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: With LD_LIBRARY_PATH defined, use --disable-new-dtags.
+	+ commit 2501a48930eb3724a3bb29c9b8fd6eab13ef77ba
+	* configure.ac (LDADD_FOR_TESTS_KLUDGE): New for --disable-new-dtags.
+	* tests/Makefile.am (LDADD): Use LDADD_FOR_TESTS_KLUDGE.
+
+	build: Add -no-install for LDFLAGS of test programs.
+	+ commit 6b8ed75b40e6ff6baa85fbd71e2dc2eb17d75b4d
+	* tests/Makefile.am (AM_LD_FLAGS): Add -no-install.
+
+2019-05-15  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Limit exposing rwlock API on GNU/Linux.
+	+ commit 575573b5b63e147b1906240f192dbe37a26ca4b9
+	* configure.ac (INSERT_EXPOSE_RWLOCK_API): New.
+	* src/npth.h.in: Use INSERT_EXPOSE_RWLOCK_API.
+	* tests/Makefile.am (AM_CPPFLAGS): Remove _POSIX_C_SOURCE.
+
+2019-01-23  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Define _NPTH_NO_RWLOCK when we can't find pthread_rwlock_t.
+	+ commit 223e59f992f9ea63563a8ad070b2f56fb1bbd83b
+	* configure.ac (INSERT_NO_RWLOCK): New.
+	* src/npth.h.in (@INSERT_NO_RWLOCK@): Use.
+
+2018-11-08  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Use cast by uintptr_t for thread ID.
+	+ commit 377c1b91e67af25613ccb72ee26449661cea8d8e
+	* w32/npth.c (npth_init): Cast with uintptr_t.
+	(npth_setname_np, npth_create, npth_self): Likewise.
+
+2018-11-02  NIIBE Yutaka  <gniibe@fsij.org>
+
+	npth.m4: Emit message when using gpgrt-config.
+	+ commit f8ceac80d9709f40358190d919b3215036a68ba1
+	* npth.m4: Add AC_MSG_NOTICE.
+
+2018-10-29  NIIBE Yutaka  <gniibe@fsij.org>
+
+	npth.m4: Assume new gpgrt-config.
+	+ commit a41676fb87edb06acfba0290b37a86ffc760d9e3
+	* npth.m4: Don't supply CC but use --libdir.
+
+2018-10-26  NIIBE Yutaka  <gniibe@fsij.org>
+
+	More fix.
+	+ commit 8c16b5ee245173d14e558b366d90d2329ce699af
+
+
+	Fix previous commit.
+	+ commit c9b6a5e1cf851097440a8e8fac1e07f3174ad8aa
+
+
+	npth.m4: Better backward compatibility.
+	+ commit 7638c3579c2212817f0c6345d77b1e03067be33f
+	* npth.m4: Don't assume npth-config is newer.
+
+	build: Improve npth.m4.
+	+ commit c540909055c3523d29c255fc3e0314ad773b1832
+	* src/npth.m4: Don't try gpgrt-config when NPTH_CONFIG set.  Fall back
+	to detecting npth-config, when gpgrt-config doesn't work well.
+
+2018-10-25  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Relax requirement of gpg-error-config.
+	+ commit 7a1d2dcecce3495e6aefc26892a4abb269228e9d
+	* npth.m4: Don't require AM_PATH_GPG_ERROR.
+
+2018-10-24  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Compatibility to pkg-config.
+	+ commit 5fb67e0e597569dc4f4c12534fb13167bf71a0b2
+	* npth-config.in: Support --variable and --modversion.
+
+	build: Make npth.m4 use gpg-error-config.
+	+ commit a48b6aec3659114e5b9a4cfd34f90bbcd777eb66
+	* npth.m4: Use gpg-error-config.
+
+	build: Provide npth.pc, generated by configure.
+	+ commit f3cbbc86cb49a1729d6df573bd76a5559e7f636b
+	* configure.ac: Generate npth.pc.
+	* Makefile.am (pkgconfigdir, pkgconfig_DATA): New.
+	(EXTRA_DIST): Add npth.pc.in.
+	* npth-config.in: Use @PACKAGE_VERSION@.
+	* npth.pc.in: New.
+
+2018-07-16  Werner Koch  <wk@gnupg.org>
+
+	Release 1.6.
+	+ commit 771287929ed226add3ef27de882c5359dcd3f66e
+	* configure.ac: Bump LT version to C1/A1/R2.
+
+2018-07-12  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Let configure create the VERSION file.
+	+ commit 90e3dda03585dd4c1bcbab3da194cb9aee9c80fe
+	* autogen.sh: Update from libgpg-error.
+	* configure.ac: Use mym4_* things to create VERSION file.
+	* Makefile.am (dist-hook): Do not create VERSION.
+	(EXTRA_DIST): Add VERSION.
+
+2018-05-28  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Fix libraries for HP-UX.
+	+ commit f8b8e5d1112a7b1aee0669ed14679ca27e8a95df
+	* configure.ac: HP-UX requires -lpthread and -lrt.
+
+2017-11-30  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Fix memory leak for npth_create.
+	+ commit 167b0dde6f77a15af2e75da570e88720a335705e
+	* w32/npth.c (npth_create): Free ATTR when allocated.
+	(npth_attr_destroy): Clear.
+
+2017-06-02  Werner Koch  <wk@gnupg.org>
+
+	Release 1.5.
+	+ commit 77c094e606b3952c470ccfa21b546bb13e4de1db
+	* configure.ac: Set LT version to C1/A1/R1.
+
+2017-06-01  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Fix busy_wait_for.
+	+ commit 4fae99976c31bae53183aeec8df2032aaba2e689
+	* src/npth.c (busy_wait_for): Remove comparison negation.
+
+2017-05-16  Werner Koch  <wk@gnupg.org>
+
+	Release 1.4.
+	+ commit 9fcc113fc267f3a8d2b8699b41f3c10fa3cb187c
+	* configure.ac: Set LT version to C1/A1/R0.
+
+	Add function npth_is_protected.
+	+ commit 8a675d6b1dd19018f2579f8c8ce6a58bc5a20a4e
+	* src/npth.c (got_sceptre): New.
+	(enter_npth, leave_npth): Set.
+	(npth_is_protected): New.
+	* w32/npth.c: (got_sceptre): New.
+	(enter_npth, leave_npth): Set.
+	(npth_is_protected): New.
+	* w32/npth.def, src/libnpth.vers: Add new function.
+
+2017-04-20  NIIBE Yutaka  <gniibe@fsij.org>
+
+	w32: Change the condition for struct timespec.
+	+ commit 217bc1c6aabaaebbbb461e2435c2b8f539b271ad
+	* w32/npth.h: Fix the ifdef case.
+
+2017-04-05  NIIBE Yutaka  <gniibe@fsij.org>
+
+	configure: Add tweak for FreeBSD.
+	+ commit b47443d95d5c363e91ef446140d8b60ffe28a58b
+	* configure: On FreeBSD, we use -lpthread.
+
+	configure: Add tweak for DragonFlyBSD.
+	+ commit 09b73da00e9dd988681ca957b30c461c67924563
+	* configure.ac: On DragonFlyBSD, we use -lpthread.
+
+	configure: Add tweak for NetBSD.
+	+ commit e31917deefad2a8073817512f9e99bb269a04788
+	* configure.ac: On NetBSD, we use -lpthread.
+
+2016-11-29  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Use unnamed semaphore of Grand Central Dispatch for macOS.
+	+ commit 8f486d084a0e4d9409fb93809ec5b3bf820f343b
+	* configure.ac [*-apple-darwin*]: Search dispatch_semaphore_create
+	and define HAVE_LIB_DISPATCH if found.
+	* src/npth.c [HAVE_LIB_DISPATCH] (sem_init, sem_post, sem_wait): New.
+	* src/npth.c (try_sem_open): Remove.
+	* tests/t-fork.c: Add comments.
+
+2016-11-22  Werner Koch  <wk@gnupg.org>
+
+	Release 1.3.
+	+ commit d1b8d54bc3d5e4975752d737c271bf8c346dc3a9
+	* configure.ac: Bump LT version to C0/A0/R6.
+
+2016-11-21  Werner Koch  <wk@gnupg.org>
+
+	Bypass npth_unprotect/protect when npth has not yet been initialized.
+	+ commit 50d6d727c8da21cf78dcd5a2ee969f46864fa124
+	* src/npth.c (initialized_or_any_threads): New variable.
+	(npth_init): Set var.
+	(npth_create): Set var.
+	(npth_unprotect, npth_protect): Shortcut if not initialized.
+
+	* w32/npth.c (initialized_or_any_threads): New variable.
+	(npth_init): Set var.
+	(npth_unprotect, npth_protect): Shortcut if not initialized.
+
+2016-10-10  Justus Winter  <justus@gnupg.org>
+
+	src: Fix setting thread names on macOS.
+	+ commit 8cddd2ce70f85eea6c68ca6d03080181a2eea976
+	* src/npth.c (npth_setname_np): Support Apple's one-argument form.
+
+2016-07-13  Werner Koch  <wk@gnupg.org>
+
+	build: Update config.{guess,sub} to {2016-05-15,2016-06-20}.
+	+ commit 17addb77ee95ccade2060d4469a8b56bc12bfb5e
+	* build-aux/config.guess: Update.
+	* build-aux/config.sub: Update.
+
+2016-07-05  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Fix for semaphore access by child.
+	+ commit 6e69a440d2be080cf13cc3c3a72428f7e48457bb
+	* configure.ac (HAVE_FORK_UNSAFE_SEMAPHORE): New.
+	* src/npth.c (sem_init): Use NPTH_SEMAPHORE_PSHARED.
+	* tests/t-fork.c: New.
+
+2016-06-25  Werner Koch  <wk@gnupg.org>
+
+	w32: Include io.h for read(2) and write(2).
+	+ commit e345e0133ba79ffc9d181591d349242297d44ab4
+	* w32/npth.c: Include io.h.
+
+	Fix problem with regression tests on recent glibc.
+	+ commit 3a9d32eb59194b989656548755066ccd9feb36ac
+	* configure.ac: Change pthread test to test pthread_detach
+
+2015-11-26  Werner Koch  <wk@gnupg.org>
+
+	Improve debug output.
+	+ commit 3ccc6218833e17893eb94a6efdf05a13da94942c
+	* w32/npth.c (_npth_debug): Print to stderr.
+	(enter_npth, leave_npth): Include the tid in the debug output.
+
+2015-08-25  Werner Koch  <wk@gnupg.org>
+
+	Add configure option --enable-build-timestamp.
+	+ commit 4781ced10715e126d7b9c712de970c2606635c27
+	* configure.ac (BUILD_TIMESTAMP): Set to "<none>" by default.  Also
+	with ac_define_unquoted.
+
+2015-06-06  Jim Meyering  <meyering@fb.com>
+
+	configure.ac: improve check for clock_gettime library.
+	+ commit a49a061c65fb3a6d9c58add4dc55435f0c4353a2
+	* configure.ac: When using AC_SEARCH_LIBS, handle the case in which
+	that function returns "none required". Also, save and restore LIBS
+	around the check, and properly m4-quote the first argument to AC_DEFINE.
+	Finally, also set and AC_SUBST LIB_CLOCK_GETTIME.
+	This added code is very similar to that provided in gnulib's
+	clock-time.m4.
+	* tests/Makefile.am (LDADD): Append $(LIB_CLOCK_GETTIME).
+
+2015-04-28  NIIBE Yutaka  <gniibe@fsij.org>
+
+	npth-config: supply a library dependency for clock_gettime.
+	+ commit c2015a2bafa99fdab8f26af9b60e93f1d36ac166
+	* configure.ac (clock_gettime): Update config_libs.
+
+2015-04-11  Werner Koch  <wk@gnupg.org>
+
+	Release 1.2.
+	+ commit bc97d5175065aa9682527f6760094c50ce199c3c
+
+
+2015-02-03  Werner Koch  <wk@gnupg.org>
+
+	w32: Use -static-libgcc to avoid linking to libgcc_s_sjlj-1.dll.
+	+ commit 3ffea74924704c0986fde3e5e8b19d4fc55cfcb9
+	* w32/Makefile.am: Remove non-Windows stuff.
+	(extra_ltoptions): New.
+	(libnpth_la_LDFLAGS): Use it.
+
+2015-01-28  Werner Koch  <wk@gnupg.org>
+
+	Switch to automake 1.14.
+	+ commit a2614eafa085bdb5a618589aaabc9edaabb83d1f
+	* Makefile.am (AUTOMAKE_OPTIONS): Move to ...
+	* configure.ac (AM_INIT_AUTOMAKE): here.  Add serial-tests.
+	* build-aux/compile: Add.
+	* build-aux/config.guess, build-aux/config.sub: Update.
+	* build-aux/depcomp: Update.
+	* build-aux/missing: Update.
+
+2014-12-18  Werner Koch  <wk@gnupg.org>
+
+	Don't get fooled by leave_npth changing ERRNO.
+	+ commit c90a48fa62ce6215aba1f87b49dab848fb59a5b7
+	* src/npth.c: Save ERRNO.
+
+2014-10-31  Werner Koch  <wk@gnupg.org>
+
+	Release 1.1.
+	+ commit 7a3175b90a6164342e1e771bfd206c56c60fcb2c
+	* configure.ac: Set LT version to C0/A0/R4.
+
+2014-10-29  Werner Koch  <wk@gnupg.org>
+
+	Allow use on systems which return ENOSYS for sem_init.
+	+ commit 510135a23bb92fa527541e7d81bf6f831db306a5
+	* src/npth.c: Include some more headers.
+	(sceptre_buffer): New.
+	(sceptre): Change to a pointer and init to sceptre_buffer.
+	(enter_npth, leave_npth): Adjust.
+	(try_sem_open): New.
+	(npth_init): Check for ENOSYS and use sem_open.
+
+2014-09-18  Werner Koch  <wk@gnupg.org>
+
+	Release 1.0.
+	+ commit 79fbdcedb5429537ba116c9fc118f148c7b33d4f
+	* configure.ac: Set LT version to C0/A0/R2.
+
+2014-06-27  Werner Koch  <wk@gnupg.org>
+
+	w32: Fix segv in npth_eselect.
+	+ commit 8a687d0c71f2b66dd6b6e9dd2fe17e32fb04f5e1
+	* w32/npth.c (npth_eselect): Obvious fix.
+
+	w32: Change an npth_eselect arg to unsigned.
+	+ commit 3716fd6d877d672ba0b77d01ba5abf6af55bfaf1
+	* w32/npth.c (npth_eselect): Change arg EVENTS_SET to unsigned int.
+
+2014-06-26  Werner Koch  <wk@gnupg.org>
+
+	w32: Let npth_eselect return 0 for timeout. Fix replacement error codes.
+	+ commit 9534958a92146d705f4b2714dd11f038f0b1cb4b
+	* w32/npth.c (npth_eselect): Remove debug output.  Return 0 for timeout.
+	* w32/npth.h (ETIMEDOUT, EOPNOTSUPP):  Change to more correct values.
+
+2014-02-19  Werner Koch  <wk@gnupg.org>
+
+	w32: Make npth_eselect actually work.
+	+ commit 75dba175e0ea15c395c7d74323e5bee43791317a
+	* w32/npth.c (npth_eselect): Rewrite.
+
+	w32: Avoid calling FD_ISSET with a NULL fdset.
+	+ commit 4312f967099718eb64ba489d5d238d95d156a3f4
+	* w32/npth.c (npth_eselect): Check fdset before callig FD_foo.
+
+2014-01-10  Werner Koch  <wk@gnupg.org>
+
+	Use the generic autogen.sh script.
+	+ commit 477ce6965e2be38880adae9479d1cc947f3aa853
+	* autogen.rc: New.
+	* Makefile.am (EXTRA_DIST): Add it.
+	* autogen.sh: Update from GnuPG.
+
+	Move helper scripts to build-aux.
+	+ commit e18f8674dc7b0a02d78560be9dbe04452e04133d
+	* config.guess, config.sub, depcomp, install-sh
+	* ltmain.sh, missing: Move to build-aux/.
+	* configure.ac (AC_CONFIG_AUX_DIR): New.
+	(AM_SILENT_RULES): New.
+
+2014-01-09  Werner Koch  <wk@gnupg.org>
+
+	Fix creation of w32 npth-config tool.
+	+ commit f976b55fc1987edd2c199c3a6ff35f2ee7495aa9
+	* src/npth-config.in: Move to ../.
+	* src/npth.m4: Move to ../.
+	* w32/npth-config.in: Remove.
+	* w32/npth.m4: Remove.
+	* Makefile.am (EXTRA_DIST): Add npth-config.in and npth.m4.
+	(bin_SCRIPTS): new.
+	(m4datadir, m4data_DATA): New.
+	* configure.ac (AC_CONFIG_FILES): Adjust accordingly.
+
+	Add configure option --enable-silent-rules.
+	+ commit 8115fbf33e8886474a57e270a384a2b7fc91002c
+	* configure.ac: Add AM_SILENT_RULES.
+
+	Update libtool to support Android.
+	+ commit e63e1d4ff0d569fc571e5891c529f66d79da38ca
+	* m4/libtool.m4: Add "linux*android*" case.  Taken from the
+	libgpg-error.
+
+	Update config.{guess.sub} to a decent version (2013-11-29)
+	+ commit 6dce1db4fb9d2839def4b68d775a454add851bee
+
+
+	Add hack to have different names for 64 bit Windows DLLs.
+	+ commit 0ec6f3afe0ac02ba56dd8f54fdfa92935a4accce
+	* ltmain.sh: Prefix the SO number for W64 with a "6".
+
+	Fix libtool 2.4.2 to correctly detect .def files.
+	+ commit f69b1749ad81cb82f161cfa7aad5ecc782befd9b
+	* ltmain.sh (sed_uncomment_deffile): New.
+	(orig_export_symbols): Uncomment def file before testing for EXPORTS.
+	* m4/libtool.m4: Do the same for the generated code.
+
+	Update libtool to Debian's 2.4.2.
+	+ commit 296a3865584c7cde4a1afc86f075bb76c6c07d16
+
+
+	w32: Fix build problems with current compilers.
+	+ commit b116a29432172f2f65e9755dae8d1b976cbc8a8a
+	* configure.ac (NTELIBS): ac_subst for W32.
+	* w32/npth.h (struct timespec): Do not define for current mingw-w64
+	versions.
+
+2013-12-10  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Conditionalize use of pthread_atfork.
+	+ commit 34bafb36df418541982dfcdc0fd9773931cfc3c7
+	* configure.ac: Add checking pthread_atfork.
+
+	* src/npth-sigev.c (npth_sigev_fini): Call pthread_atfork only when
+	it's available.
+
+2013-07-03  NIIBE Yutaka  <gniibe@fsij.org>
+
+	Restore sigmask at fork.
+	+ commit 9a3377bb534654ec398300c1900350b02321f86c
+	* src/npth-sigev.c (restore_sigmask_for_child_process): New.
+	(npth_sigev_fini): Register restore_sigmask_for_child_process.
+
+2012-11-21  Ben Kibbey  <bjk@luxsci.net>
+
+	Build fix for NetBSD.
+	+ commit 95754492a41c8284264476f05e3fe3c50c3b4aa9
+	* src/npth.c (npth_setname_np): conditional check for __NetBSD__ and
+	adapt correct parameters.
+
+2012-11-16  Werner Koch  <wk@gnupg.org>
+
+	Improve parsing of the GIT revision number.
+	+ commit d8ec1a2e01549dcae0240e587a4b663bf5e45172
+	* configure.ac (git_revision): Use git rev-parse.
+
+	Fix non-portable use of chmod in autogen.sh.
+	+ commit cd01413fe060c4633a8056ae50e776424d8c7a75
+	* autogen.sh: Remove option -c from chmod.
+
+2012-09-26  Werner Koch  <wk@gnupg.org>
+
+	Make local variables configure hack more robust.
+	+ commit 522743d2d621fc2c5230cc546ef17f4e896b464a
+	* configure.ac (emacs_local_vars_begin): Use extra m4 quoting so that
+	newer Emscasen won't take it up as Local Variables for this file.
+
+2012-08-08  Werner Koch  <wk@gnupg.org>
+
+	Release 0.91.
+	+ commit e63a929ab90f4f17928f36f2d073f2a6f9f93bc6
+	* configure.ac: Bump LT version to C0/A0/R2.
+
+2012-05-15  Werner Koch  <wk@gnupg.org>
+
+	Really fix the version number parsing.
+	+ commit 5bce7b5a742359da68f4c0aef35e98fe7335714e
+	* src/npth.m4 (_AM_PATH_NPTH_CONFIG, _AM_PATH_NPTH_CONFIG]: Fix last
+	fix.  Print detected version number.  Print warning for non-matching
+	host.
+
+	Fix version number parsing in npth.m4.
+	+ commit 1b34fdadc449bf16c30b36e7a7ad272bd224b3fd
+	* src/npth.m4: Adjust for n.m style version numbers.
+
+2012-05-10  Werner Koch  <wk@gnupg.org>
+
+	Provide gettimeofday fallback for clock_gettime.
+	+ commit 4e25a69e9e869ea58fb4f6eeab64bcd74c86174d
+	* configure.ac (AC_CHECK_FUNCS): Check for gettimeofday.
+	* src/npth.c (npth_clock_gettime): Use gettimeofday if clock_gettime
+	is not available.
+
+	Return an error if npth_rwlock_timedwrlock is not supported.
+	+ commit 363c370bd35dd0bb4e5636b2d4f06ea88c658794
+	* src/npth.c (npth_rwlock_timedwrlock): Return ENOSYS if there is no
+	way to build it.
+
+	Avoid compiler warning for debug variable.
+	+ commit 4b84b65203a41229c1775d515963ed65af2c5eea
+	* src/npth.c (main_thread): Flag as volatile.
+
+	Include required headers into pth.h.
+	+ commit 09f3fccf2cf7c03fd16ebce26ae5ff2ee58effc7
+	* src/npth.h.in: Include sys/time.h and signal.h.  Include time.h only
+	if available.
+	* configure.ac (INSERT_SYS_TIME_H, INSERT_TIME_H, INSERT_SIGNAL_H):
+	Detect header files and ac_subst snippets.
+
+	Remove obsolete debug stuff.
+	+ commit 957044558c489ce55835501e4c2dc30d6a28dc79
+	* src/npth.c (enter_npth, leave_npth): Remove argument and debug
+	stuff.
+	(ENTER, LEAVE): Adjust macros accordingly.
+
+	Add a basic create and join thread test case.
+	+ commit 246d9e5f0201286c380eef88f5cfa1dafd16b428
+	* tests/t-thread.c: New
+	* tests/t-support.h (opt_verbose):  New.
+	(fail_msg, info_msg): New.
+
+	Make npth_setname_np actually work.
+	+ commit b4c396baaf824d1315708e81b4768cc7e13ab226
+	* src/npth.c (npth_setname_np): Fix typo in name and test macro.
+
+	Check for -lsocket et al.
+	+ commit 96964e02c18a7d79375da9481c8f9d8c35404b7b
+	* m4/libsocket.m4: New.  Stripped down from gnulib's socketlib.m4.
+	* tests/Makefile.am (LDADD): Add LIBSOCKET.
+	* configure.ac (NETLIBS): Remove because it is not used.
+	(npth_LIBSOCKET): Call.
+
+2012-05-09  Werner Koch  <wk@gnupg.org>
+
+	Add a pselect emulation.
+	+ commit 74bf5068ac96a2abb66d60b86acc1882f0d864d1
+	* src/npth.c [!HAVE_PSELECT]: Include signal.h
+	(npth_pselect) [!HAVE_PSELECT]: Implement a crude pselect emulation
+	* configure.ac (AC_CHECK_FUNCS): Test for pselect.
+
+	Cleanup the debug code.
+	+ commit f24cc48ef797f7338a4d95db412ba61e60ba3cf7
+	Debugging was only used for initial testing and there is no interface
+	to enable it at runtime.  This change make the code a little bit
+	cleaner.
+
+	Take care of possible surprising sem_init implementations.
+	+ commit 05e423336a86f0530f50d567060a799d2824dff7
+	* src/npth.c (npth_init): Return an error only for POSIX.1-2008.
+
+	Make the t-mutex test more robust.
+	+ commit 2c86233acfeef843167694f45fd3f208d5ec96b6
+	* tests/t-support.h: Simplify.
+	* tests/t-mutex.c: Include t-support.h.
+	(main): Check each call and explicitly return 0.
+
+	Let npth_init actually return an error.
+	+ commit a03223379c937763df9873c4ba9aa8a64cbd94d7
+	* src/npth.c (npth_init): Return ERRNO.
+
+	Provide a replacement for socklen_t.
+	+ commit a5d8a7fb56caef0e03ad6ebc8287eacf8c5dd7ba
+	* m4/socklen.m4, m4/sys_socket_h.m4: New.
+	* configure.ac (INSERT_SOCKLEN_T): New.
+	* src/npth.h.in (INSERT_SOCKLEN_T): New substitution.
+	(npth_connect, npth_accept): Use _npth_socklen_t.
+
+	Do not use ___FUNCTION__.
+	+ commit 9596d679b14eeedbe0f06fecbaeeded84b05e719
+	* src/npth.c: Define replacement for __func__.
+	(ENTER, LEAVE): Use __func__.
+
+	Tweak for building with c99.
+	+ commit 219fcc09f224d9c0ceb2c4b4b87831ba6349527b
+	* tests/Makefile.am (AM_CPPFLAGS): Add -D_POSIX_C_SOURCE=200112L.
+
+	Add unistd.h is available.
+	+ commit 6d15e15d142b6843ea955a85badd370093585372
+	* configure.ac (AC_CHECK_HEADERS): Test for unistd.h.
+	* src/npth.c [HAVE_UNISTD_H]: Include unistd.h.
+
+2012-05-04  Werner Koch  <wk@gnupg.org>
+
+	Implement git magic to create beta version numbers.
+	+ commit e44910011d30d13a858ccd46455b2fc33527e06a
+	* configure.ac (BUILD_FILEVERSION): Move after detection of W32.
+
+	Release 0.90.
+	+ commit 9670c423161c7561020e724fe739815b93665bcd
+	* configure.ac: Bump LT version to C0/A0/R1.
+
+2012-03-09  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Support Android API level earlier than 9.
+	+ commit cbb52bd5ada02bbd914869f4540221831358d077
+	* src/npth.h [__ANDROID__]: Include <android/api-level.h>
+	(_NPTH_NO_RWLOCK) [__ANDROID__ && __ANDROID_API__ < 9]: Define.
+	(npth_rwlockattr_t, npth_rwlockattr_init, npth_rwlockattr_destroy,
+	npth_rwlockattr_gettype_np, npth_rwlockattr_settype_np,
+	NPTH_RWLOCK_PREFER_READER_NP, NPTH_RWLOCK_PREFER_WRITER_NP,
+	NPTH_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP, NPTH_RWLOCK_DEFAULT_NP,
+	NPTH_RWLOCK_INITIALIZER, NPTH_RWLOCK_WRITER_NONRECURSIVE_INITIALIZER_NP,
+	NPTH_MUTEX_INITIALIZER, npth_rwlock_t, npth_rwlock_init,
+	npth_rwlock_destroy, npth_rwlock_tryrdlock, npth_rwlock_rdlock,
+	npth_rwlock_trywrlock, npth_rwlock_timedrdlock, npth_rwlock_wrlock,
+	npth_rwlock_rdlock, npth_rwlock_timedwrlock, npth_rwlock_unlock
+	(_NPTH_NO_RWLOCK): Alternative implementation based on mutex.
+
+2012-02-28  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Remove npth_yield.
+	+ commit c30634abebb287f56a6a2480b4bbd2ffc166dd4d
+	* src/npth.h.in (npth_yield): Macro removed (should have been a
+	function anyway).
+	* w32/npth.c (npth_yield): Remove function.
+	* w32/npth.h (npth_yield): Remove prototype.
+	* w32/npth.def (npth_yield): Remove symbol export.
+
+	Make rwlock try and timed functions optional.
+	+ commit 798d166a64ed88e75e2827579f6be1526d73f54f
+	* configure.ac: Check for pthread_rwlock_rdlock, pthread_rwlock_wrlock,
+	pthread_rwlock_timedrdlock, pthread_rwlock_timedwrlock,
+	pthread_rwlock_tryrdlock, pthread_rwlock_trywrlock.
+	* src/npth.c (trylock_func_t): New type.
+	(busy_wait_for): New function.
+	(npth_mutex_timedlock) [!HAVE_PTHREAD_MUTEX_TIMEDLOCK]: Reimplement
+	in terms of busy_wait_for.
+	(npth_rwlock_rdlock, npth_rwlock_timedrdlock)
+	[!HAVE_PTHREAD_RWLOCK_TRYRDLOCK]: Skip trylock.
+	(npth_rwlock_wrlock, npth_rwlock_timedwrlock)
+	[!HAVE_PTHREAD_RWLOCK_TRYWRLOCK]: Skip trylock call.
+	(npth_rwlock_timedrdlock) [!HAVE_PTHREAD_RWLOCK_TIMEDRDLOCK]:
+	Use busy_wait_for.
+	(npth_rwlock_timedwrlock) [!HAVE_PTHREAD_RWLOCK_TIMEDWRLOCK]:
+	Use busy_wait_for.
+
+	Add generated files src/npth.h and w32/npth-config.
+	+ commit 4a98eac43e7ad36c32f2feacf261ddcec81b20e9
+
+
+2012-02-08  Marcus Brinkmann  <mb@g10code.com>
+
+	Fix include path for non-w32 builds.
+	+ commit 96caea9d6c0a38eecb07ca4009c00dbcd20ab63f
+	* tests/Makefile.am (AM_CPPFLAGS) [!HAVE_W32_SYSTEM]:
+	Locate header in build dir, not src.
+
+2012-01-31  Marcus Brinkmann  <mb@g10code.com>
+
+	Implement npth_mutex_timedlock for inferior systems.
+	+ commit 64b99056b8ef2cf13a5ef206193d7ef40ee2bdb3
+	* configure.ac: Check for pthread_mutex_timedlock.
+	* src/npth.c (BUSY_WAIT_INTERVAL): New macro.
+	(npth_mutex_timedlock): If pthread_mutex_timedlock is missing,
+	use a poke-the-stick-at-it strategy.
+
+2012-01-27  Werner Koch  <wk@gnupg.org>
+
+	Include sys/select.h if needed.
+	+ commit 3a8ebdd6a418461ac57994676f27aac13a444d4c
+	* src/npth.h: Rename to npth.h.in.  Include sys/select.h if
+	available. Add usual read-only comments.
+	* configure.ac: Create npth.h.
+	(INSERT_SYS_SELECT_N): New
+	(emacs_local_vars_read_only): New vars to support read-only switching.
+
+	Update config.guess and config.sub.
+	+ commit 3cc80f63c0b0ebeb521e48debfd2a7fadcbb4116
+	* config.guess, config.sub: Update to version 2012-01-01.
+	* autogen.sh: Fix typo.
+
+	Encapsulate clock_gettime.
+	+ commit 951bd3e3487f07df82855ec4068af4f0226a7a67
+	* src/Makefile.am (libnpth_la_LDFLAGS): Remove -pthread and -lrt.
+	* src/npth.h (npth_clock_gettime): Turn macro into a function.
+	* src/npth.c (npth_clock_gettime): New.
+	* src/libnpth.vers: Add npth_clock_gettime.
+
+	Improve pthread library detection.
+	+ commit edbf7f1c802f82262ac595fc77bffefab2118573
+	* configure.ac: Reorder some code.  Improve pthread test to take libc
+	in account.  Generate NPTH_CONFIG_LIBS from tests.
+	* src/npth-config.in: Use NPTH_CONFIG_LIBS.
+	* w32/npth-config.in: Ditto.
+	* tests/Makefile.am (AM_CPPFLAGS, AM_LDFLAGS): Don not pass -pthread.
+
+2012-01-26  Werner Koch  <wk@gnupg.org>
+
+	Remove unused include files from npth.h.
+	+ commit 8fac9f692d47147050333ec7f12a8a5ec497be54
+	* src/npth.h: Remove unused poll.h and errno.h includes.
+
+	Make npth_{s,g}etname_np portable.
+	+ commit dbfcb88f4281e8b69a41959c94ea658b7550160c
+	These functions are usually used for debugging.  On systems where
+	they are not easy to support they will now simply return ENOSYS.
+	* configure.ac: Check for pthread_setname_np and pthread_getname_np.
+	* src/libnpth.vers: Add npth_setname_np and npth_getname_np.
+	* src/npth.c (npth_setname_np, npth_getname_np): New.
+	* src/npth.h (npth_setname_np, npth_getname_np): Turn macros into
+	functions.
+
+	Check for the non-portable pthread_tryjoin_np.
+	+ commit 6fde8b5a7463204f93cf537515921b1734c83364
+	* configure.ac: Check for pthread_tryjoin_np.  Also rework the pthread
+	test to update LIBS
+	* src/npth.c (npth_join) [HAVE_PTHREAD_TRYJOIN_NP]: Use
+	pthread_tryjoin_np only if available.
+
+2012-01-25  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Fix thread startup.
+	+ commit f142c818e60d338b2df197ca3351b2f567ff6dfe
+	* src/npth.c (npth_create): Fix startup data use.
+
+2012-01-25  Werner Koch  <wk@gnupg.org>
+
+	Include stdlib.h for malloc prototypes.
+	+ commit 9f488127ff9d59cdb9e89600e5aa1821f85379ae
+	* src/npth.c: Include stdlib.h.
+
+2012-01-24  Werner Koch  <wk@gnupg.org>
+
+	Require gitlog-to-changelog to be installed.
+	+ commit 0c481067f73d2c4e49fca85f2647cc550d23315d
+	* Makefile.am (gen-ChangeLog): Do no use included gitlog-to-changelog.
+	Use options --append-dot and --tear-off.
+	* build-aux/gitlog-to-changelog: Remove from repo.
+
+2012-01-23  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Allow manually unprotect/protect calls.
+	+ commit 1c690fa8dad058f6facb1473ad2dcc326ed2aea9
+	* src/libnpth.vers (npth_unprotect, npth_protect): New symbols.
+	* src/npth.c (npth_unprotect, npth_protect): New functions.
+	* src/npth.h (npth_unprotect, npth_protect): New declaration.
+	* w32/npth.def (npth_unprotect, npth_protect): New exports.
+	* w32/npth.c (npth_unprotect, npth_protect): New functions.
+	* w32/npth.h (npth_unprotect, npth_protect): New declaration.
+
+2012-01-19  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Allow no extra events in npth_eselect.
+	+ commit b64e43f18b198ad2ce0665168f1c84f058204b77
+	* w32/npth.c (npth_eselect): Allow events to be NULL.
+
+	Implement ability to wait on sockets and events.
+	+ commit ae0f5109f13a892b3e7b30c829cbe08832b9e971
+	* w32/npth.c (npth_eselect): New function.
+	* w32/npth.h (npth_eselect): New declaration.
+	* w32/npth.def (npth_eselect): New export.
+
+	Remove libnpth.vers dependency.
+	+ commit cf3f76455ef5cc1cb76e7e85e2bc4079fc293119
+	* w32/Makefile.am (libnpth_la_DEPENDENCIES): Remove libnpth.vers.
+
+	Release mutex temporarily on instant timeout in npth_cond_timedwait.
+	+ commit e6ced3f9f52878a78fa926938bf569c717f7fa49
+	* w32/npth.c (npth_cond_timedwait): Release mutex temporarily even on
+	instant timeout.
+
+2012-01-13  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Remove obsolete file.
+	+ commit d3e70c770f6031414449ad4cde7aaba7d6b1478e
+	* src/Makefile.am (EXTRA_DIST): Remove npth.def
+	* src/npth.def: Removed.
+
+	Initial support for w32.
+	+ commit d2769a96a07d11f3c9f7ff6e9d2ce4e0fbc750a3
+	* Makefile.am [HAVE_W32_SYSTEM]: Build from w32 directory.
+	* configure.ac: Don't check for pthread on windows.  Add winsock
+	library on windows.  Add w32 subdirectory to config files.
+	* w32/npth.h, w32/npth.c, w32/Makefile.am, w32/npth.def,
+	w32/npth-config.in, w32/npth.m4: New files.
+	* tests/Makefile.am: Allow building on w32.
+
+	Add missing function npth_system.
+	+ commit 8cf18d22725e301a4b2b052d8d73b35cdb157d38
+	* src/npth.c (npth_system): New function.
+
+2012-01-11  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Remove duplicated macro.
+	+ commit dd7054ea0c3f11ea7fc25a39b7bb68ec78d178df
+	* npth.h (PTHREAD_RWLOCK_INITIALIZER): Remove.
+
+	Add some missing interfaces.
+	+ commit 9785a216bc95d80b3222f8dc4ff0f70c5c183651
+	* npth.h (npth_key_delete, NPTH_ERRORCHECK_MUTEX_INITIALIZER_NP,
+	npth_rwlockattr_t, npth_rwlockattr_init, npth_rwlockattr_destroy,
+	npth_rwlockattr_gettype_np, npth_rwlockattr_settype_np,
+	NPTH_RWLOCK_PREFER_READER_NP, NPTH_RWLOCK_PREFER_WRITER_NP,
+	NPTH_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP, NPTH_RWLOCK_DEFAULT_NP,
+	NPTH_RWLOCK_INITIALIZER, NPTH_RWLOCK_WRITER_NONRECURSIVE_INITIALIZER_NP):
+	New macros.
+	(NPTH_RWLOCK_INIT): Rename to ...
+	(NPTH_RWLOCK_INITIALIZER): ... this.
+
+2012-01-06  Marcus Brinkmann  <marcus.brinkmann@ruhr-uni-bochum.de>
+
+	Fix exclusion logic at thread creation and allow main thread to exit.
+	+ commit 316f3deca8450633ba6724eb55d54fd9249610fb
+	* libnpth.vers (npth_create, npth_exit): New.
+	* npth.def (npth_create, npth_exit): Likewise.
+	* npth.h (npth_create): Change from macro to declaration.
+	(npth_exit): New declaration.
+	* npth.c (startup_s): New struct.
+	(thread_startup, npth_create, npth_exit): New functions.
+
+2011-12-06  Werner Koch  <wk@gnupg.org>
+
+	Create the ChangeLog from the git commit log.
+	+ commit 46d0a03879612c6dcddc5bf93004881f9c768cd6
+	* autogen.sh: Install git commit log checker.
+	* build-aux/git-hooks/commit-msg: New.  Repo only.
+	* build-aux/git-log-fix: New.  Repo only.
+	* build-aux/git-log-footer: New.  Repo only.
+	* build-aux/gitlog-to-changelog: New.  Repo only.
+	* HACKING: New.
+	* Makefile.am (gen-Changelog): New rule.
+	(dist-hook):  Depend on gen-Changelog.
+	(EXTRA_DIST): Add HACKING.
+	* ChangeLog: New stub file.
+
+2011-11-07  Marcus Brinkmann  <marcus@g10code.com>
+
+	* src/npth.c (leave_npth): Loop over sem_wait on EINTR.
+
+2011-10-26  Marcus Brinkmann  <marcus@g10code.com>
+
+	* src/npth.h (npth_mutex_destroy): Add it.
+	(npth_join): Make it a proper function.
+	(_npth_mutex_lock, _npth_mutex_timedlock, _npth_rwlock_rdlock)
+	(_npth_rwlock_timedrdlock, _npth_rwlock_wrlock)
+	(_npth_rwlock_timedwrlock): Renamed to the variant without the
+	leading underscore.  There was no reason to have the static
+	function wrappers.
+	* src/npth.c: Corresponding changes here.
+	* src/npth.def: Also here.
+	* src/libnpth.vers: Likewise.
+
+2011-10-07  Marcus Brinkmann  <marcus@g10code.com>
+
+	* src/npth.h (npth_mutexattr_t, npth_mutexattr_init)
+	(npth_mutexattr_destroy, npth_mutexattr_settype)
+	(npth_mutexattr_gettype, NPTH_MUTEX_NORMAL, NPTH_MUTEX_RECURSIVE)
+	(NPTH_MUTEX_ERRORCHECK, NPTH_MUTEX_DEFAULT): New.
+	* src/npth.c (npth_mutex_init): Removed.
+	* src/libnpth.vers: Remove npth_mutex_init.
+	* src/npth.def: Likewise.  Add missing numbers.
+	* tests/t-mutex.c: Adjust to new interface.
+
+2011-10-06  Marcus Brinkmann  <marcus@g10code.com>
+
+	* Initial version.
+
+        -----
+	Copyright (C) 2011 g10 Code GmbH
+
+	Copying and distribution of this file and/or the original GIT
+	commit log messages, with or without modification, are
+	permitted provided the copyright notice and this notice are
+	preserved.

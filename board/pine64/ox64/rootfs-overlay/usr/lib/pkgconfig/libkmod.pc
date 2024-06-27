@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libkmod
+Description: Library to deal with kernel modules
+Version: 32
+Libs: -L${libdir} -lkmod
+Libs.private: -lzstd -llzma -lz
+Cflags: -I${includedir}

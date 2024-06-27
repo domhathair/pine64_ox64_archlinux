@@ -1,0 +1,88 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.22. pam_motd - display the motd file</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_mkhomedir.html" title="6.21. pam_mkhomedir - create users home directory"><link rel="next" href="sag-pam_namespace.html" title="6.23. pam_namespace - setup a private namespace"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.22. pam_motd - display the motd file</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_mkhomedir.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_namespace.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_motd"></a>6.22. pam_motd - display the motd file</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">pam_motd.so</code>  [
+        motd=<em class="replaceable"><code>/path/filename</code></em>
+      ] [
+        motd_dir=<em class="replaceable"><code>/path/dirname.d</code></em>
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-description"></a>6.22.1. DESCRIPTION</h3></div></div></div><p>
+      pam_motd is a PAM module that can be used to display
+      arbitrary motd (message of the day) files after a successful
+      login. By default, pam_motd shows files in the
+      following locations:
+    </p><p>
+      </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename">/etc/motd</code></td></tr><tr><td><code class="filename">/run/motd</code></td></tr><tr><td><code class="filename">/usr/lib/motd</code></td></tr><tr><td><code class="filename">/etc/motd.d/</code></td></tr><tr><td><code class="filename">/run/motd.d/</code></td></tr><tr><td><code class="filename">/usr/lib/motd.d/</code></td></tr></table><p>
+    </p><p>
+      Each message size is limited to 64KB.
+    </p><p>
+      If <code class="filename">/etc/motd</code> does not exist,
+      then <code class="filename">/run/motd</code> is shown. If
+      <code class="filename">/run/motd</code> does not exist, then
+      <code class="filename">/usr/lib/motd</code> is shown.
+    </p><p>
+      Similar overriding behavior applies to the directories.
+      Files in <code class="filename">/etc/motd.d/</code> override files
+      with the same name in <code class="filename">/run/motd.d/</code> and
+      <code class="filename">/usr/lib/motd.d/</code>. Files in <code class="filename">/run/motd.d/</code>
+      override files with the same name in <code class="filename">/usr/lib/motd.d/</code>.
+    </p><p>
+      Files in the directories listed above are displayed in lexicographic
+      order by name. Moreover, the files are filtered by reading them with the
+      credentials of the target user authenticating on the system.
+    </p><p>
+      To silence a message,
+      a symbolic link with target <code class="filename">/dev/null</code>
+      may be placed in <code class="filename">/etc/motd.d</code> with
+      the same filename as the message to be silenced. Example:
+      Creating a symbolic link as follows silences <code class="filename">/usr/lib/motd.d/my_motd</code>.
+    </p><p>
+      <span class="command"><strong>ln -s /dev/null /etc/motd.d/my_motd</strong></span>
+    </p><p>
+      The <span class="emphasis"><em>MOTD_SHOWN=pam</em></span> environment variable
+      is set after showing the motd files, even when all of them were silenced
+      using symbolic links.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-options"></a>6.22.2. OPTIONS</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          motd=/path/filename
+        </span></dt><dd><p>
+            The <code class="filename">/path/filename</code> file is displayed
+            as message of the day. Multiple paths to try can be
+            specified as a colon-separated list. By default this option
+            is set to <code class="filename">/etc/motd:/run/motd:/usr/lib/motd</code>.
+          </p></dd><dt><span class="term">
+          motd_dir=/path/dirname.d
+        </span></dt><dd><p>
+            The <code class="filename">/path/dirname.d</code> directory is scanned
+            and each file contained inside of it is displayed. Multiple
+            directories to scan can be specified as a colon-separated list.
+            By default this option is set to <code class="filename">/etc/motd.d:/run/motd.d:/usr/lib/motd.d</code>.
+          </p></dd></dl></div><p>
+      When no options are given, the default behavior applies for both
+      options. Specifying either option (or both) will disable the
+      default behavior for both options.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-types"></a>6.22.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+      Only the <code class="option">session</code> module type is provided.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-return_values"></a>6.22.4. RETURN VALUES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_ABORT</span></dt><dd><p>
+             Not all relevant data or options could be obtained.
+          </p></dd><dt><span class="term">PAM_BUF_ERR</span></dt><dd><p>
+              Memory buffer error.
+          </p></dd><dt><span class="term">PAM_IGNORE</span></dt><dd><p>
+            This is the default return value of this module.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-examples"></a>6.22.5. EXAMPLES</h3></div></div></div><p>
+      The suggested usage for <code class="filename">/etc/pam.d/login</code> is:
+      </p><pre class="programlisting">
+session  optional  pam_motd.so
+      </pre><p>
+    </p><p>
+      To use a <code class="filename">motd</code> file from a different location:
+      </p><pre class="programlisting">
+session  optional  pam_motd.so motd=/elsewhere/motd
+      </pre><p>
+    </p><p>
+      To use a <code class="filename">motd</code> file from elsewhere, along with a
+      corresponding <code class="filename">.d</code> directory:
+      </p><pre class="programlisting">
+session  optional  pam_motd.so motd=/elsewhere/motd motd_dir=/elsewhere/motd.d
+      </pre><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_motd-author"></a>6.22.6. AUTHOR</h3></div></div></div><p>
+        pam_motd was written by Ben Collins &lt;bcollins@debian.org&gt;.
+      </p><p>
+        The <code class="option">motd_dir=</code> option was added by
+        Allison Karlitskaya &lt;allison.karlitskaya@redhat.com&gt;.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_mkhomedir.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_namespace.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.21. pam_mkhomedir - create users home directory </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.23. pam_namespace - setup a private namespace</td></tr></table></div></body></html>

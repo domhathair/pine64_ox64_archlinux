@@ -1,0 +1,78 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.37. pam_tty_audit - enable/disable tty auditing</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_timestamp.html" title="6.36. pam_timestamp - authenticate using cached successful authentication attempts"><link rel="next" href="sag-pam_umask.html" title="6.38. pam_umask - set the file mode creation mask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.37. pam_tty_audit - enable/disable tty auditing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_timestamp.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_umask.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_tty_audit"></a>6.37. pam_tty_audit - enable/disable tty auditing</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">pam_tty_audit.so</code>  [
+	disable=<em class="replaceable"><code>patterns</code></em>
+      ] [
+	enable=<em class="replaceable"><code>patterns</code></em>
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-description"></a>6.37.1. DESCRIPTION</h3></div></div></div><p>
+      The pam_tty_audit PAM module is used to enable or disable TTY auditing.
+      By default, the kernel does not audit input on any TTY.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-options"></a>6.37.2. OPTIONS</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          disable=patterns
+        </span></dt><dd><p>
+	    For each user matching <code class="option"><em class="replaceable"><code>patterns</code></em></code>,
+	    disable TTY auditing.  This overrides any previous <code class="option">enable</code>
+	    option matching the same user name on the command line. See NOTES
+	    for further description of <code class="option"><em class="replaceable"><code>patterns</code></em></code>.
+          </p></dd><dt><span class="term">
+          enable=patterns
+        </span></dt><dd><p>
+	    For each user matching <code class="option"><em class="replaceable"><code>patterns</code></em></code>,
+	    enable TTY auditing.  This overrides any previous <code class="option">disable</code>
+	    option matching the same user name on the command line. See NOTES
+	    for further description of <code class="option"><em class="replaceable"><code>patterns</code></em></code>.
+          </p></dd><dt><span class="term">
+          open_only
+        </span></dt><dd><p>
+           Set the TTY audit flag when opening the session, but do not restore
+           it when closing the session.  Using this option is necessary for
+           some services that don't <code class="function">fork()</code> to run the
+           authenticated session, such as <span class="command"><strong>sudo</strong></span>.
+          </p></dd><dt><span class="term">
+          log_passwd
+        </span></dt><dd><p>
+	   Log keystrokes when ECHO mode is off but ICANON mode is active.
+	   This is the mode in which the tty is placed during password entry.
+	   By default, passwords are not logged.  This option may not be
+	   available on older kernels (3.9?).
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-types"></a>6.37.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+      Only the <span class="emphasis"><em>session</em></span> type is supported.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-return_values"></a>6.37.4. RETURN VALUES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_SESSION_ERR</span></dt><dd><p>
+	     Error reading or modifying the TTY audit flag.  See the system log
+	     for more details.
+          </p></dd><dt><span class="term">PAM_SUCCESS</span></dt><dd><p>
+            Success.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-notes"></a>6.37.5. NOTES</h3></div></div></div><p>
+      When TTY auditing is enabled, it is inherited by all processes started by
+      that user.  In particular, daemons restarted by a user will still have
+      TTY auditing enabled, and audit TTY input even by other users unless
+      auditing for these users is explicitly disabled.  Therefore, it is
+      recommended to use <code class="option">disable=*</code> as the first option for
+      most daemons using PAM.
+    </p><p>
+      To view the data that was logged by the kernel to audit use
+      the command <span class="command"><strong>aureport --tty</strong></span>.
+    </p><p>
+      The <code class="option"><em class="replaceable"><code>patterns</code></em></code> are comma separated
+      lists of glob patterns or ranges of uids. A range is specified as
+      <em class="replaceable"><code>min_uid</code></em>:<em class="replaceable"><code>max_uid</code></em> where
+      one of these values can be empty. If <em class="replaceable"><code>min_uid</code></em> is
+      empty only user with the uid <em class="replaceable"><code>max_uid</code></em> will be
+      matched. If <em class="replaceable"><code>max_uid</code></em> is empty users with the uid
+      greater than or equal to <em class="replaceable"><code>min_uid</code></em> will be
+      matched.
+    </p><p>
+      Please note that passwords in some circumstances may be logged by TTY auditing
+      even if the <code class="option">log_passwd</code> is not used. For example, all input to
+      an ssh session will be logged - even if there is a password being typed into
+      some software running at the remote host because only the local TTY state
+      affects the local TTY auditing.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-examples"></a>6.37.6. EXAMPLES</h3></div></div></div><p>
+      Audit all administrative actions.
+      </p><pre class="programlisting">
+session	required pam_tty_audit.so disable=* enable=root
+      </pre><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_tty_audit-author"></a>6.37.7. AUTHOR</h3></div></div></div><p>
+        pam_tty_audit was written by Miloslav Trmač
+	&lt;mitr@redhat.com&gt;.
+        The log_passwd option was added by Richard Guy Briggs
+        &lt;rgb@redhat.com&gt;.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_timestamp.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_umask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.36. pam_timestamp - authenticate using cached successful authentication attempts </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.38. pam_umask - set the file mode creation mask</td></tr></table></div></body></html>

@@ -1,0 +1,11 @@
+prefix=/usr
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+datadir=${prefix}/share
+
+Name: sysprof-capture-4
+Description: The static capture library for tools that generate profiling capture data
+Version: 45.2
+Libs: -L${libdir} -lsysprof-capture-4 -pthread
+Cflags: -I${includedir}/sysprof-6 -pthread

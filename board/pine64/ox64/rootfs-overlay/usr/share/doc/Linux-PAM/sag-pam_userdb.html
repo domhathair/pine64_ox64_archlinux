@@ -1,0 +1,110 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6.40. pam_userdb - authenticate against a db database</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="Linux-PAM_SAG.html" title="The Linux-PAM System Administrators' Guide"><link rel="up" href="sag-module-reference.html" title="Chapter 6. A reference guide for available modules"><link rel="prev" href="sag-pam_unix.html" title="6.39. pam_unix - traditional password authentication"><link rel="next" href="sag-pam_warn.html" title="6.41. pam_warn - logs all PAM items"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.40. pam_userdb - authenticate against a db database</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sag-pam_unix.html">Prev</a> </td><th width="60%" align="center">Chapter 6. A reference guide for available modules</th><td width="20%" align="right"> <a accesskey="n" href="sag-pam_warn.html">Next</a></td></tr></table><hr></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sag-pam_userdb"></a>6.40. pam_userdb - authenticate against a db database</h2></div></div></div><div class="cmdsynopsis"><p><code class="command">pam_userdb.so</code>   
+	db=<em class="replaceable"><code>/path/database</code></em>
+        [
+	debug
+      ] [
+        crypt=[crypt|none]
+      ] [
+        icase
+      ] [
+        dump
+      ] [
+        try_first_pass
+      ] [
+        use_first_pass
+      ] [
+        unknown_ok
+      ] [
+        key_only
+      ]</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-description"></a>6.40.1. DESCRIPTION</h3></div></div></div><p>
+      The pam_userdb module is used to verify a username/password pair
+      against values stored in a Berkeley DB database. The database is
+      indexed by the username, and the data fields corresponding to the
+      username keys are the passwords.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-options"></a>6.40.2. OPTIONS</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          crypt=[crypt|none]
+        </span></dt><dd><p>
+            Indicates whether encrypted or plaintext passwords are stored
+            in the database.  If it is <code class="option">crypt</code>, passwords
+            should be stored in the database in
+            <span class="citerefentry"><span class="refentrytitle">crypt</span>(3)</span> form.  If <code class="option">none</code> is selected,
+            passwords should be stored in the database as plaintext.
+          </p></dd><dt><span class="term">
+          db=/path/database
+        </span></dt><dd><p>
+            Use the <code class="filename">/path/database</code> database for
+            performing lookup. There is no default; the module will
+            return <span class="emphasis"><em>PAM_IGNORE</em></span> if no
+            database is provided. Note that the path to the database file
+            should be specified without the <code class="filename">.db</code> suffix.
+          </p></dd><dt><span class="term">
+          debug
+        </span></dt><dd><p>
+            Print debug information. Note that password hashes, both from db
+            and computed, will be printed to syslog.
+          </p></dd><dt><span class="term">
+          dump
+        </span></dt><dd><p>
+            Dump all the entries in the database to the log.
+            Don't do this by default!
+          </p></dd><dt><span class="term">
+          icase
+        </span></dt><dd><p>
+            Make the password verification to be case insensitive
+            (ie when working with registration numbers and such).
+            Only works with plaintext password storage.
+          </p></dd><dt><span class="term">
+          try_first_pass
+        </span></dt><dd><p>
+            Use the authentication token previously obtained by
+            another module that did the conversation with the
+            application.  If this token can not be obtained then
+            the module will try to converse. This option can
+            be used for stacking different modules that need to
+            deal with the authentication tokens.
+          </p></dd><dt><span class="term">
+          use_first_pass
+        </span></dt><dd><p>
+            Use the authentication token previously obtained by
+            another module that did the conversation with the
+            application.  If this token can not be obtained then
+            the module will fail. This option can be used for
+            stacking different modules that need to deal with
+            the authentication tokens.
+          </p></dd><dt><span class="term">
+          unknown_ok
+        </span></dt><dd><p>
+            Do not return error when checking for a user that is
+            not in the database. This can be used to stack more
+            than one pam_userdb module that will check a
+            username/password pair in more than a database.
+          </p></dd><dt><span class="term">
+          key_only
+        </span></dt><dd><p>
+            The username and password are concatenated together
+            in the database hash as 'username-password' with a
+            random value.  if the concatenation of the username and
+            password with a dash in the middle returns any result,
+            the user is valid.  this is useful in cases where
+            the username may not be unique but the username and
+            password pair are.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-types"></a>6.40.3. MODULE TYPES PROVIDED</h3></div></div></div><p>
+      The <code class="option">auth</code> and <code class="option">account</code> module
+      types are provided.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-return_values"></a>6.40.4. RETURN VALUES</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">PAM_AUTH_ERR</span></dt><dd><p>Authentication failure.</p></dd><dt><span class="term">PAM_AUTHTOK_RECOVERY_ERR</span></dt><dd><p>
+            Authentication information cannot be recovered.
+          </p></dd><dt><span class="term">PAM_BUF_ERR</span></dt><dd><p>
+             Memory buffer error.
+          </p></dd><dt><span class="term">PAM_CONV_ERR</span></dt><dd><p>
+             Conversation failure.
+          </p></dd><dt><span class="term">PAM_SERVICE_ERR</span></dt><dd><p>
+             Error in service module.
+          </p></dd><dt><span class="term">PAM_SUCCESS</span></dt><dd><p>
+            Success.
+          </p></dd><dt><span class="term">PAM_USER_UNKNOWN</span></dt><dd><p>
+            User not known to the underlying authentication module.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-examples"></a>6.40.5. EXAMPLES</h3></div></div></div><pre class="programlisting">
+auth  sufficient pam_userdb.so icase db=/etc/dbtest
+    </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="sag-pam_userdb-author"></a>6.40.6. AUTHOR</h3></div></div></div><p>
+        pam_userdb was written by Cristian Gafton &gt;gafton@redhat.com&lt;.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sag-pam_unix.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sag-module-reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sag-pam_warn.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.39. pam_unix - traditional password authentication </td><td width="20%" align="center"><a accesskey="h" href="Linux-PAM_SAG.html">Home</a></td><td width="40%" align="right" valign="top"> 6.41. pam_warn - logs all PAM items</td></tr></table></div></body></html>

@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/lib
+includedir=${prefix}/include
+
+Name:		libattr
+Description:	A library for filesystem extended attribute support
+Version:	2.5.2
+Cflags:		-I${includedir}
+Libs:		-L${libdir} -lattr

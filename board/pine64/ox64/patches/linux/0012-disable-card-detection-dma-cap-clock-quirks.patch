@@ -1,0 +1,29 @@
+From 86147e9086c5315cac4b7b5fea0116b8044936fd Mon Sep 17 00:00:00 2001
+From: Allen Martin <armartin@gmail.com>
+Date: Fri, 13 Jan 2023 03:02:41 -0800
+Subject: [PATCH 12/26] disable card detection/dma/cap clock quirks
+
+---
+ drivers/mmc/host/sdhci-bflb.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/mmc/host/sdhci-bflb.c b/drivers/mmc/host/sdhci-bflb.c
+index a67ecb2a3..c9141ddd7 100644
+--- a/drivers/mmc/host/sdhci-bflb.c
++++ b/drivers/mmc/host/sdhci-bflb.c
+@@ -55,11 +55,7 @@ static const struct sdhci_pltfm_data sdhci_bflb_pdata = {
+ 	.quirks	= SDHCI_QUIRK_NO_SIMULT_VDD_AND_POWER |
+ 		  SDHCI_QUIRK_NO_BUSY_IRQ |
+ 		  SDHCI_QUIRK_BROKEN_TIMEOUT_VAL |
+-		  SDHCI_QUIRK_NO_HISPD_BIT |
+-		  SDHCI_QUIRK_BROKEN_CARD_DETECTION |
+-		  SDHCI_QUIRK_BROKEN_DMA |
+-		  SDHCI_QUIRK_BROKEN_ADMA |
+-		  SDHCI_QUIRK_CAP_CLOCK_BASE_BROKEN,
++		  SDHCI_QUIRK_NO_HISPD_BIT,
+ };
+ 
+ static int sdhci_bflb_probe(struct platform_device *pdev)
+-- 
+2.42.0
+

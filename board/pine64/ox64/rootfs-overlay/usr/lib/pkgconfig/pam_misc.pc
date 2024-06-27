@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/lib
+includedir=/usr/include/security
+
+Name: pam_misc
+Description: Miscellaneous functions that make the job of writing PAM-aware applications easier.
+URL: http://www.linux-pam.org/
+Version: 1.6.0
+Cflags: -I${includedir}
+Libs: -L${libdir} -lpam_misc

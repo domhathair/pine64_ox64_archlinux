@@ -1,0 +1,10 @@
+prefix=/usr
+sysconfdir=/etc
+distconfdir=${prefix}/lib
+module_directory=/lib/modules
+module_compressions=gzip xz zstd 
+module_signatures=PKCS7 legacy
+
+Name: kmod
+Description: Tools to deal with kernel modules
+Version: 32

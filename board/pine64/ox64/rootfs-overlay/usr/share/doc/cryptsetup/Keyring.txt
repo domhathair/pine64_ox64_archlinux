@@ -1,0 +1,79 @@
+Integration with kernel keyring service
+---------------------------------------
+
+We have two different use cases for kernel keyring service:
+
+I) Volume keys
+
+Since upstream kernel 4.10 dm-crypt device mapper target allows loading volume
+key (VK) in kernel keyring service. The key offloaded in kernel keyring service
+is only referenced (by key description) in dm-crypt target and the VK is therefore
+no longer stored directly in dm-crypt target. Starting with cryptsetup 2.0 we
+load VK in kernel keyring by default for LUKSv2 devices (when dm-crypt with the
+feature is available).
+
+Currently, cryptsetup loads VK in 'logon' type kernel key so that VK is passed in
+the kernel and can't be read from userspace afterwards. Also, cryptsetup loads VK in
+the thread keyring (before passing the reference to dm-crypt target) so that the key
+lifetime is directly bound to the process that performs the dm-crypt setup. When
+cryptsetup process exits (for whatever reason) the key gets unlinked in the kernel
+automatically. In summary, the key description visible in dm-crypt table line is
+a reference to VK that usually no longer exists in kernel keyring service if you
+used cryptsetup for device activation.
+
+Using this feature dm-crypt no longer maintains a direct key copy (but there's
+always at least one copy in the kernel crypto layer).
+
+Additionally, libcryptsetup supports the linking of volume keys to
+user-specified kernel keyring with crypt_set_keyring_to_link(). The user may
+specify keyring name, key type ('user' or 'logon') and key description where
+libcryptsetup should link the verified volume key upon subsequent device
+activation (or key verification alone).
+
+The volume key(s) (provided the key type is 'user') linked in the user keyring
+can be later used to activate the device via crypt_activate_by_keyslot_context()
+with CRYPT_KC_TYPE_VK_KEYRING type keyslot context
+(acquired by crypt_keyslot_context_init_by_vk_in_keyring()).
+
+Example of how to use volume key linked in custom user keyring from cryptsetup
+utility:
+
+1) Open the device and store the volume key to the session keyring:
+# cryptsetup open <device> --link-vk-to-keyring "@s::%user:testkey" tst
+
+2) Add a keyslot using the stored volume key in a keyring:
+# cryptsetup luksAddKey <device> --volume-key-keyring "%user:testkey"
+
+3) Activate the device using the volume key cached in a keyring ('user' type key)
+# cryptsetup open <device> <active_name> --volume-key-keyring "testkey"
+
+II) Keyslot passphrase
+The second use case for kernel keyring is to allow cryptsetup reading the keyslot
+passphrase stored in kernel keyring instead. The user may load the passphrase in the kernel
+keyring and notify cryptsetup to read it from there later. Currently, cryptsetup
+cli supports kernel keyring for passphrase only via LUKS2 internal token
+(luks2-keyring). The library also provides a general method for device activation by
+reading the passphrase from the keyring: crypt_activate_by_keyring(). The key type
+for use case II) must always be 'user' since we need to read the actual key
+data from userspace unlike with VK in I). The ability to read keyslot passphrases
+from kernel keyring also allows easy auto-activate LUKS2 devices.
+
+Simple example of how to use kernel keyring for keyslot passphrase:
+
+1) create LUKS2 keyring token for keyslot 0 (in LUKS2 device/image)
+cryptsetup token add --key-description my:key -S 0 /dev/device
+
+2) Load keyslot passphrase in user keyring
+read -s -p "Keyslot passphrase: "; echo -n $REPLY | keyctl padd user my:key @u
+
+3) Activate the device using the passphrase stored in the kernel keyring
+cryptsetup open /dev/device my_unlocked_device
+
+4a) unlink the key when no longer needed by
+keyctl unlink %user:my:key @u
+
+4b) or revoke it immediately by
+keyctl revoke %user:my:key
+
+If cryptsetup asks for a passphrase in step 3) something went wrong with keyring
+activation. See --debug output then.
