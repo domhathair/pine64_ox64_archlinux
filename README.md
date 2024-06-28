@@ -98,7 +98,7 @@ Remove SD card from the computer and place it into your SBC.
 
 # First Boot
 
-Login with creditians:
+Login with credentials:
 ```
 Username: root
 Password: archriscv
