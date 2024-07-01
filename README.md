@@ -1,4 +1,4 @@
-# Usage
+## Usage
 ```
 cd ~
 git clone https://github.com/domhathair/pine64_ox64_archlinux.git
@@ -20,7 +20,7 @@ make
 ```
 Finished images are stored at _buildroot/output/images/_
 
-# Troubleshooting
+## Troubleshooting
 
 - If you encounter an error like:
 ```
@@ -33,7 +33,7 @@ Then try inside the buildroot folder:
 make
 ```
 
-# Prebuilt Images
+## Prebuilt Images
 
 Prebuilt images are available on the releases page. The SD card images are configured with a 1GB Swap Partition, 200MB Boot Partition and 2GB Root Partition.
 
@@ -43,7 +43,7 @@ Inside the downloads you will find the following files:
 - _bl808-firmware.bin_ - A image containing OpenSBI, Uboot and Uboot dtb files; 
 - _sdcard.tar.gz_ - A tarball containing the rootfs for the image to be flashed to the SD card.
 
-# ROM Flashing Instructions
+## ROM Flashing Instructions
 
 Download your prefered image above and extract the files.
 
@@ -68,7 +68,7 @@ Download your prefered image above and extract the files.
     + UART RX is physical pin 31/GPIO 17;
     + On the Sipeed M1s Dock, this is _/dev/ttyUSB[n]_.
 
- # SD Card Flashing Instructions
+## SD Card Flashing Instructions
 
 Get a list of block devices using _lsblk_. Hereinafter the symbol *<\*>* will indicate your SD card:
 ```
@@ -96,7 +96,7 @@ sudo rmdir /mnt/rootfs/ /mnt/boot/
 ```
 Remove SD card from the computer and place it into your SBC.
 
-# First Boot
+## First Boot
 
 Login with credentials:
 ```
@@ -111,7 +111,7 @@ poweroff
 ```
 After the system shuts down successfully, restart the MCU using the built-in button.
 
-# Hints
+## Hints
 
 True RNG and GPIO are fully functional. 
 To get any random number, just read the data from _/dev/urandom_.
@@ -136,6 +136,6 @@ blctl connect_ap <ssid> [password]
 udhcpc -i bleth0
 ```
 
-# Warning
+## Warning
 
 The controller does not have the largest amount of RAM, so to avoid segmentation fault errors during operation, try not to run heavy applications and the pacman package manager on it. To update the system, insert the SD card into the computer and use _arch-chroot_, as shown in the _"SD Card Flashing Instructions"_ step.
