@@ -1,0 +1,14 @@
+[Unit]
+Description=Connect to Wi-Fi network and configure IP address
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '/etc/init.d/S02blctl $(cat /etc/init.d/S02blctl.args)'
+WorkingDirectory=/
+StandardOutput=inherit
+StandardError=inherit
+User=root
+
+[Install]
+WantedBy=multi-user.target

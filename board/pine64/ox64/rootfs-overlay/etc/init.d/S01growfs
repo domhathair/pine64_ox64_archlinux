@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 start() {
 	if [ -f "/.growfsran" ]; then
 			echo "Root Partition Already resized"
