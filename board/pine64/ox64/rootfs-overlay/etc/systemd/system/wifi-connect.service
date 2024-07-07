@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '/etc/init.d/S02blctl $(cat /etc/init.d/S02blctl.args)'
+ExecStart=/etc/init.d/S02blctl
 WorkingDirectory=/
 StandardOutput=inherit
 StandardError=inherit
